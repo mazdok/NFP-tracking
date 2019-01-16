@@ -1,21 +1,19 @@
 <template>
-  <div class="home">
+  <div class="edit-day">
     <el-row type="flex" justify="center">
       <el-col :span="10" class="date">
         <i class="el-icon-arrow-left"></i>
-        <span>{{today | moment("DD.MM.YYYY")}}</span>
+        <span>Sun, 13.01</span>
         <i class="el-icon-arrow-right"></i>
         </el-col>
     </el-row>
     <el-row type="flex" justify="center">
       <!-- DAY -->
-      <app-day class="current-mark" :day="day"></app-day>
+      <app-day :day="day" ></app-day>
     </el-row>
-    <!-- <el-row> -->
-      <!-- <el-col :span="12"> -->
         <el-form ref="form" :model="day.observation" label-width="80px" class="day-form">
-          <div class="marks">
-            <el-radio-group v-model="day.observation.mark" class="marks__wrapper">
+          <div>
+            <el-radio-group v-model="day.observation.mark">
               <el-radio :label="'red'" class="day-form__radio-mark">
                 <div class="day-form__mark red"></div>
               </el-radio>
@@ -28,11 +26,18 @@
               <el-radio :label="'lightgreen'" class="day-form__radio-mark">
                 <div class="day-form__mark lightgreen"></div>
               </el-radio>
-              <!-- <el-radio>
-                <div class="day-form__mark day-form__mark--yellow"></div>
-              </el-radio> -->
             </el-radio-group>
           </div>
+          <el-form-item label="Menstrual">
+            <el-select v-model="day.observation.menstrual" placeholder="Please select an option">
+              <el-option label="N/A" value="null"></el-option>
+              <el-option label="H" value="H"></el-option>
+              <el-option label="M" value="M"></el-option>
+              <el-option label="L" value="L"></el-option>
+              <el-option label="VL" value="VL"></el-option>
+              <el-option label="B" value="B"></el-option>
+            </el-select>
+          </el-form-item>
           <el-form-item label="Indicator">
             <el-select v-model="day.observation.indicator" placeholder="Please select an option">
               <el-option label="N/A" value="null"></el-option>
@@ -77,58 +82,36 @@
                 <el-option label="AD" value="AD"></el-option>
             </el-select>
           </el-form-item>
-          <el-row class="show-more">
-            <el-button @click="showMore = !showMore" type="text" :icon="showMore? 'el-icon-arrow-up' : 'el-icon-arrow-down'">
-              {{showMore? 'Show less' : 'Show more'}}
-            </el-button>
-            <el-collapse-transition>
-              <div v-show="showMore">
-                <el-form-item label="Menstrual">
-                  <el-select v-model="day.observation.menstrual" placeholder="Please select an option">
-                    <el-option label="N/A" value="null"></el-option>
-                    <el-option label="H" value="H"></el-option>
-                    <el-option label="M" value="M"></el-option>
-                    <el-option label="L" value="L"></el-option>
-                    <el-option label="VL" value="VL"></el-option>
-                    <el-option label="B" value="B"></el-option>
-                  </el-select>
-                </el-form-item>
-                <el-form-item label="Peak">
-                  <el-radio-group v-model="day.observation.peak">
-                    <el-radio :label="false">No</el-radio>
-                    <el-radio :label="true">Yes</el-radio>
-                  </el-radio-group>
-                </el-form-item>
-                <el-form-item label="Days after peak" v-if="day.observation.peak">
-                  <el-radio-group v-model="day.observation.dayCount">
-                    <el-radio label="0"></el-radio>
-                    <el-radio label="1"></el-radio>
-                    <el-radio label="2"></el-radio>
-                    <el-radio label="3"></el-radio>
-                  </el-radio-group>
-                </el-form-item>
-                <el-form-item label="Intercourse">
-                  <el-radio-group v-model="day.observation.intercourse">
-                    <el-radio :label="false">No</el-radio>
-                    <el-radio :label="true">Yes</el-radio>
-                  </el-radio-group>
-                </el-form-item>
-                <el-input 
-                  type="textarea"
-                  :rows="2"
-                  placeholder="You can leave here a comment"
-                  v-model="day.observation.comment"
-                  ></el-input>
-              </div>
-            </el-collapse-transition>
-          </el-row>
-          
+          <el-form-item label="Peak">
+            <el-radio-group v-model="day.observation.peak">
+              <el-radio :label="false">No</el-radio>
+              <el-radio :label="true">Yes</el-radio>
+            </el-radio-group>
+          </el-form-item>
+          <el-form-item label="Day Count">
+            <el-radio-group v-model="day.observation.dayCount">
+              <el-radio label="0"></el-radio>
+              <el-radio label="1"></el-radio>
+              <el-radio label="2"></el-radio>
+              <el-radio label="3"></el-radio>
+            </el-radio-group>
+          </el-form-item>
+          <el-form-item label="Intercourse">
+            <el-radio-group v-model="day.observation.intercourse">
+              <el-radio :label="false">No</el-radio>
+              <el-radio :label="true">Yes</el-radio>
+            </el-radio-group>
+          </el-form-item>
+          <el-input 
+            type="textarea"
+            :rows="2"
+            placeholder="You can leave here a comment"
+            v-model="day.observation.comment"
+            ></el-input>
           <div class="observation__btn-group">
-            <el-button type="primary" @click="submitObservation" class="observation__btn-submit">Create</el-button>
+            <el-button type="primary" @click="editObservation" class="observation__btn-submit">Create</el-button>
           </div>
         </el-form>
-      <!-- </el-col> -->
-    <!-- </el-row> -->
   </div>
 </template>
 
@@ -137,12 +120,12 @@
 import AppDay from '@/components/AppDay.vue';
 
 export default {
-  name: 'home',
+  name: 'edit-day',
   data() {
     return {
-      showMore: false,
       day: {
         id: null,
+        cycle_id: null,
         date: null,
         observation: {
           mark: null,
@@ -150,27 +133,27 @@ export default {
           indicator: null,
           color: null,
           sensation: null,
-          frequency: 'AD',
+          frequency: null,
           peak: false,
           dayCount: 0,
           intercourse: false,
           comment: ''
         }
-      },
+      }
     }
   },
   computed: {
-    today() {
-      return this.$moment(this.$moment(), "YYYY MM DD")
-    }
+    days() {
+      return this.$store.getters.days
+    },
   },
   methods: {
-    submitObservation() {
-      const dayObs = this.day.observation;
+    editObservation() {
+      const dayObs = this.day.observation
       const currentDay = {
-        id: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10),
-        // cycle_id: this.currentCycle.id,
-        date: this.$moment(this.$moment(), "YYYY MM DD"),
+        id: this.day.id,
+        cycle_id: this.day.cycle_id,
+        date: this.day.date,
         observation: {
           mark: dayObs.mark,
           menstrual: dayObs.menstrual,
@@ -185,20 +168,43 @@ export default {
         }
       }
       console.log(currentDay)
-      this.$store.dispatch('addDay', currentDay)
-    }
+      this.$store.dispatch('editDay', currentDay)
+    },
   },
   components: {
     AppDay
+  },
+  created() {
+    const dayId = this.$route.params.id
+    const currentDay = this.days.find(day => day.id == dayId)
+    this.day = currentDay
+    console.log(this.day)
   }
 }
 </script>
 
 <style lang="scss" scoped>
   @import '@/assets/styles/variables.scss';
-  @import '@/assets/styles/general.scss';
 
-  
+  .red {
+    background-color: $danger;
+  }
+ 
+  .green {
+    background-color: $success;
+  }
+
+  .lightgreen {
+    background-color: $lightgray;
+  }
+ 
+  .white {
+    background-color: $extra-light-border;
+  }
+ 
+  .yellow {
+    background-color: $warning;
+  }
 
   .date {
     display: flex;
@@ -224,14 +230,15 @@ export default {
     align-items: center;
     width: 70px;
     height: 140px;
-    margin-bottom: 1rem;
+    margin-right: 5px;
+    margin-bottom: 5px;
     text-align: center;
     padding: 10px;
     border: 1px solid $lighter-border;
     border-radius: 5px;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
   }
-  
+
   .day-form {
     &__mark {
       @extend .current-mark;
@@ -240,19 +247,6 @@ export default {
     }
   }
 
-  .marks {
-    &__wrapper {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      width: 100%;
-    }
-  }
-
-  .day-form__radio-mark + .day-form__radio-mark {
-    margin-left: 5px;
-  }
-  
   .observation {
     &__btn-group {
       text-align: center;
@@ -261,11 +255,5 @@ export default {
     &__btn-submit {
       margin-top: 1rem;
     }
-  }
-
-  .show-more {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
   }
 </style>
