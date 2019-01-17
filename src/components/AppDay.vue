@@ -1,10 +1,10 @@
 <template>
   <div class="day" :class="[day.observation.mark]">
     <div class="day__header">
-      <span class="day__number">{{dateIndex(day)}}</span>
-      <span class="day__date">{{day.date | moment("DD.MM.YYYY")}}</span>
+      <span class="day__number">{{dateIndex(day) || 1 }}</span>
+      <span class="day__date">{{day.date | moment("Do MM")}}</span>
     </div>
-    <img v-if="isDayHasImage(day)" src="@/assets/baby_img.svg" alt="" class="day__img">
+    <img v-if="isDayHasImage(day)" src="@/assets/img/baby_img.svg" alt="" class="day__img">
     <div>
       <div class="day__observation">
         <span v-if="day.observation.menstrual">{{day.observation.menstrual}}</span>
@@ -47,7 +47,7 @@ export default {
         return this.days.filter(day => day.cycle_id == cycleId)
       }
       //new day
-      if(!day.id) return daysInCycle(this.currentCycle.id).length + 1
+      if(!day.id && this.currentCycle) return daysInCycle(this.currentCycle.id).length + 1
       
       //edit day
       const cycleOfDate = this.$route.query.cycle_id 
@@ -123,6 +123,44 @@ export default {
     }
 
     &__comment {
+      position: absolute;
+      right: 5px;
+      bottom: 5px;
+    }
+  }
+
+  .day.squeezed {
+    width: 50px;
+    height: 52px;
+    text-align: center;
+    padding: 10px;
+
+    .day__date {
+      font-size: .75rem;
+      font-style: italic;
+    }
+
+    .day__img {
+      display: none;
+    }
+
+    .day__observation {
+      display: none;
+    }
+
+    .day__frequency {
+      display: none;
+    }
+
+    .day__peak {
+      position: absolute;
+      font-size: 1.25rem;
+      bottom: 0px;
+      top: unset;
+      transform: unset;
+    }
+
+    .day__comment {
       position: absolute;
       right: 5px;
       bottom: 5px;

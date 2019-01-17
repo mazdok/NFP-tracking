@@ -1,3 +1,4 @@
+//COLOURS CLASSES
 .red {
     background-color: $danger;
 }
@@ -16,4 +17,11 @@
 
 .yellow {
     background-color: $warning;
+}
+
+//ICONS
+.el-icon {
+    &--vertical {
+        transform: rotate(90deg);
+    }
 }

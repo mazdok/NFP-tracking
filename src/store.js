@@ -9,10 +9,12 @@ export default new Vuex.Store({
       {
         id: 1,
         current: true,
+        squeezed: true
       },
       {
         id: 2,
         current: false,
+        squeezed: false
       }
     ],
     days: [
@@ -105,13 +107,18 @@ export default new Vuex.Store({
     },
     'EDIT_DAY'(state, payload) {
       state.days = payload;
+    },
+    'RESIZE_DAYS'(state, payload) {
+      let cycle = state.cycles.find((cycle) => cycle.id === payload);
+      cycle.squeezed = !cycle.squeezed;
     }
   },
   actions: {
     addCycle({commit}) {
       const cycle = {
         id: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10),
-        current: false
+        current: false,
+        squeezed: false
       }
       commit('ADD_CYCLE', cycle);
     },
@@ -141,7 +148,7 @@ export default new Vuex.Store({
 
       const currentCycle = state.cycles.find(cycle => cycle.current);
       if(!currentCycle) {
-        console.error('Please select a current cycle first');
+        alert('Please select a current cycle first');
         return;
       }
       
@@ -169,8 +176,10 @@ export default new Vuex.Store({
       const updatedDays = [ ...state.days.slice(0, currentDayIndex), payload, ...state.days.slice(currentDayIndex + 1, state.days.length)];
 
       commit('EDIT_DAY', updatedDays);
+    },
+    resizeDays({commit}, payload) {
+      commit('RESIZE_DAYS', payload);
     }
-    
   },
   getters: {
     cycles(state) {
@@ -181,6 +190,10 @@ export default new Vuex.Store({
     },
     days(state) {
       return state.days
+    },
+    daysInCycle: state => id => {
+      // return state.todos.find(todo => todo.id === id);
+      return state.days.filter(day => day.cycle_id === id);
     }
   }
 })
