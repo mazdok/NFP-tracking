@@ -78,6 +78,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/styles/variables.scss';
+@import '@/assets/styles/general.scss';
 
   .cycle {
     &__info {
@@ -88,9 +90,9 @@ export default {
       font-size: 0.75rem;
       margin-bottom: 1rem;
       border-radius: 1rem;
-      background: linear-gradient(to right, #fcfcfc 0%, #d3d3d352 100%);
+      background: $gray-gradient;
       &.active {
-        background: linear-gradient(to right, #fcfcfc 0%, #67c23abd 100%);
+        background: $green-gradient;
       }
     }
   }

@@ -1,6 +1,6 @@
 <template>
     <el-container id="app">
-      <el-header>
+      <el-header v-if="isUserAuthenticated">
         <app-header></app-header>
       </el-header>
       
@@ -17,6 +17,11 @@ import AppHeader from '@/components/AppHeader.vue'
 export default {
   components: {
     AppHeader
+  },
+  computed: {
+    isUserAuthenticated() {
+      return this.$store.getters.isUserAuthenticated
+    }
   }
 }
 
@@ -26,5 +31,9 @@ export default {
   body {
     margin: 0;
     font-family: 'Open Sans', sans-serif;
+  }
+
+  #app {
+    flex-direction: column;
   }
 </style>

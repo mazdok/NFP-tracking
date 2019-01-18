@@ -5,21 +5,41 @@
         <i class="el-icon-date"></i>
       </router-link>
     </el-menu-item>
-    <div class="main-nav__brand">
-      <router-link to="/">
-        <img src="@/assets/img/logo.svg" class="main-nav__img" alt="">
-      </router-link>
-    </div>
+    <el-menu-item index="2">
+      <div class="main-nav__brand">
+        <router-link to="/">
+          <img src="@/assets/img/logo.svg" class="main-nav__img" alt="">
+        </router-link>
+      </div>
+    </el-menu-item>
     <el-menu-item index="3">
-     <router-link to="/settings">
-      <i class="el-icon-setting"></i></router-link>
+     <!-- <router-link to="/settings"> -->
+        <button @click="signOut">Out</button>
+      <!-- <el-dropdown  trigger="click">
+        <span class="el-dropdown-link">
+          <i class="el-icon-setting"></i>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item @click.prevent="signOut">
+            sign out
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown> -->
+      <!-- </router-link> -->
     </el-menu-item>
   </el-menu>
 </template>
 
 <script>
+// import firebase from 'firebase'
+
 export default {
-    
+  methods: {
+    signOut() {
+      this.$store.dispatch('signOut')
+      this.$router.push('/welcome')
+    }
+  }
 }
 </script>
 

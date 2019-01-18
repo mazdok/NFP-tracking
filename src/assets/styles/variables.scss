@@ -13,3 +13,7 @@ $warning: #E6A23C;
 $lightgray: lighten($color: $success, $amount: 25);
 
 $white: #fff;
+
+//GRADIENTS
+$gray-gradient: linear-gradient(to right, #fcfcfc 0%, #d3d3d352 100%);
+$green-gradient: linear-gradient(to right, #fcfcfc 0%, #67c23abd 100%);

@@ -31,6 +31,7 @@ export default {
   computed: {
     cycles() {
       return this.$store.getters.cycles
+      // return this.$store.dispatch('setLoadedCycles')
     },
     days() {
       return this.$store.getters.days

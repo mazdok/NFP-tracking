@@ -1,10 +1,18 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import userModule from './store/user'
+import generalModule from './store/general'
+// import { db } from './main'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  modules: {
+    userModule,
+    generalModule
+  },
   state: {
+    // cycles: [],
     cycles: [
       {
         id: 1,
@@ -90,6 +98,9 @@ export default new Vuex.Store({
     currentCycle: null
   },
   mutations: {
+    'SET_LOADED_CYCLES'(state, payload) {
+      state.cycles = payload;
+    },
     'ADD_CYCLE'(state, payload) {
       state.cycles.unshift(payload);
     },
@@ -114,6 +125,25 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    // setLoadedCycles({commit}) {
+      // const cycles = db.ref('cycles')
+      // console.log(cycles)
+      // commit('SET_LOADED_CYCLES', cycles);
+
+      // db.collection('cycles').get().then(querySnapshot => {
+      //   const cycles = []
+      //   querySnapshot.forEach(doc => {
+      //     const data = {
+      //       'id': doc.id,
+      //       'current': doc.current,
+      //       'squeezed': doc.squeezed
+      //     }
+      //     cycles.push(data)
+      //   })
+      //   console.log(cycles)
+      //   commit('SET_LOADED_CYCLES', cycles);
+      // })
+    // },
     addCycle({commit}) {
       const cycle = {
         id: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10),
