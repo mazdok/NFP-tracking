@@ -83,7 +83,6 @@ export default {
     const dayId = this.$route.params.id
     const currentDay = this.days.find(day => day.id == dayId)
     this.day = currentDay
-    // console.log(this.day)
   }
 }
 </script>

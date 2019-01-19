@@ -12,26 +12,33 @@
         </router-link>
       </div>
     </el-menu-item>
-    <el-menu-item index="3">
-     <!-- <router-link to="/settings"> -->
-        <button @click="signOut">Out</button>
-      <!-- <el-dropdown  trigger="click">
+    <el-menu-item index="3" class="header-more">
+        <!-- <button @click="signOut">Out</button> -->
+      <el-dropdown  trigger="click">
         <span class="el-dropdown-link">
-          <i class="el-icon-setting"></i>
+          <i class="el-icon-more el-icon-more--vertical"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item @click.prevent="signOut">
-            sign out
+          <el-dropdown-item >
+           <router-link to="/settings">
+             <el-button 
+              icon="el-icon-setting" 
+              type="text">Settings</el-button>
+           </router-link>
+          </el-dropdown-item>
+          <el-dropdown-item >
+            <el-button 
+              @click.prevent="signOut"
+              icon="el-icon-back" 
+              type="text">Sign out</el-button>
           </el-dropdown-item>
         </el-dropdown-menu>
-      </el-dropdown> -->
-      <!-- </router-link> -->
+      </el-dropdown>
     </el-menu-item>
   </el-menu>
 </template>
 
 <script>
-// import firebase from 'firebase'
 
 export default {
   methods: {
@@ -53,5 +60,13 @@ export default {
     &__img {
       width: 40px;
     }
+  }
+
+  .el-icon-more--vertical {
+    transform: rotate(90deg);
+  }
+
+  .header-more {
+    border-bottom: none !important;
   }
 </style>

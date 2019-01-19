@@ -20,7 +20,7 @@
           <el-button size="mini" 
             type="text" 
             :icon="cycle.squeezed? 'el-icon-plus' : 'el-icon-minus'" 
-            @click="resizeDays(cycle.id)">
+            @click="resizeCycle(cycle.id)">
             {{cycle.squeezed? 'Expand days' : 'Minify days'}}
           </el-button>
         </el-dropdown-item>
@@ -70,8 +70,8 @@ export default {
       deleteCycle(id) {
         this.$store.dispatch('deleteCycle', id)
       },
-      resizeDays(cycleId) {
-        this.$store.dispatch('resizeDays', cycleId)
+      resizeCycle(cycleId) {
+        this.$store.dispatch('resizeCycle', cycleId)
       }
     }
 }

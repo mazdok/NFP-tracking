@@ -8,23 +8,33 @@ import './registerServiceWorker'
 import './styles.scss'
 import firebaseConfig from './config/firebase'
 import firebase from 'firebase/app'
+import 'firebase/firestore'
 
 Vue.use(require('vue-moment'));
 Vue.use(ElementUI)
 Vue.use(Element)
 
-firebase.initializeApp(firebaseConfig)
-// export const db = firebase.firestore()
+const firebaseApp = firebase.initializeApp(firebaseConfig)
+const db = firebaseApp.firestore()
+db.settings({
+  timestampsInSnapshots: true
+})
+
+Vue.$db = db
 
 Vue.config.productionTip = false
 
-new Vue({
-  router,
-  store,
-  render: h => h(App),
-  created() {
-    firebase.auth().onAuthStateChanged(function(user) {
+let app;
+firebase.auth().onAuthStateChanged(function(user) {
+  new Vue({
+    router,
+    store,
+    render: h => h(App),
+    created() {
       store.dispatch('stateChanged', user)
-    });
-  },
-}).$mount('#app')
+
+      store.dispatch('setLoadedCycles');
+      store.dispatch('setLoadedBooks');
+    },
+  }).$mount('#app')
+});

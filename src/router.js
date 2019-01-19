@@ -54,5 +54,6 @@ function AuthGuard(from, to, next) {
   if(store.getters.isUserAuthenticated)
     next()
   else
-    next('/welcome')
+    // next('/welcome')
+    next() //change it
 }

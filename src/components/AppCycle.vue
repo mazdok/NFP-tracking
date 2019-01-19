@@ -46,6 +46,7 @@ export default {
 	},
 	methods: {
 		daysInCycle(id) {
+			// console.log(this.$store.getters.daysInCycle(id))
 			return this.$store.getters.daysInCycle(id)
 		}
 	},

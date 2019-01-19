@@ -1,3 +1,4 @@
+
 export default {
   state: {
     processing: false,
@@ -15,7 +16,6 @@ export default {
     }
   },
   actions: {
-
   },
   getters: {
     getProcessing: (state) => state.processing,

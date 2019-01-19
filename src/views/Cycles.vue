@@ -1,7 +1,7 @@
 <template>
   <div class="cycles-page">
-    <div class="cycles">
-      <h1>Cycles</h1>
+    <h1>Cycles</h1>
+    <div class="cycles" v-loading="getProcessing">
       <el-button 
         type="success" 
         icon="el-icon-plus" 
@@ -29,9 +29,11 @@ export default {
     }
   },
   computed: {
+    getProcessing() {
+      return this.$store.getters.getProcessing
+    },
     cycles() {
       return this.$store.getters.cycles
-      // return this.$store.dispatch('setLoadedCycles')
     },
     days() {
       return this.$store.getters.days
@@ -41,9 +43,6 @@ export default {
     addCycle() {
       this.$store.dispatch('addCycle')
     },
-    daysInCycle(id) {
-      return this.$store.getters.daysInCycle(id)
-    }
   },
   components: {
     AppCycle  
