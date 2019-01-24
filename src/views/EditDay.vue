@@ -1,5 +1,5 @@
 <template>
-  <div class="edit-day">
+  <div class="edit-day" v-loading="!days.length">
     <el-row type="flex" justify="center">
       <el-col :span="10">
         <!-- DATE -->
@@ -8,11 +8,10 @@
     </el-row>
     <el-row type="flex" justify="center">
       <!-- DAY -->
-      <app-day :day="day" ></app-day>
+      <app-day :day="day"></app-day>
     </el-row>
     <!-- DAY FORM -->
     <day-form :day="day" :edit="true"></day-form>
-
   </div>
 </template>
 
@@ -50,39 +49,17 @@ export default {
       return this.$store.getters.days
     },
   },
-  methods: {
-    editObservation() {
-      const dayObs = this.day.observation
-      const currentDay = {
-        id: this.day.id,
-        cycle_id: this.day.cycle_id,
-        date: this.day.date,
-        observation: {
-          mark: dayObs.mark,
-          menstrual: dayObs.menstrual,
-          indicator: dayObs.indicator,
-          color: dayObs.color,
-          sensation: dayObs.sensation,
-          frequency: dayObs.frequency,
-          peak: dayObs.peak,
-          dayCount: dayObs.dayCount,
-          intercourse: dayObs.intercourse,
-          comment: dayObs.comment
-        }
-      }
-      // console.log(currentDay)
-      this.$store.dispatch('editDay', currentDay)
-    },
-  },
   components: {
     AppDay,
     DayForm,
     AppDate
   },
   created() {
-    const dayId = this.$route.params.id
-    const currentDay = this.days.find(day => day.id == dayId)
-    this.day = currentDay
+    if(this.days.length) {
+      const dayId = this.$route.params.id
+      const currentDay = this.days.find(day => day.id == dayId)
+      this.day = currentDay
+    }
   }
 }
 </script>

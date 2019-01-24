@@ -34,9 +34,6 @@ export default {
     },
     cycles() {
       return this.$store.getters.cycles
-    },
-    days() {
-      return this.$store.getters.days
     }
   },
   methods: {

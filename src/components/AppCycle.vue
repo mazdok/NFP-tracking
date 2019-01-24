@@ -6,7 +6,8 @@
 			<h3 v-if="!daysInCycle(cycle.id).length" 
 				class="cycle__empty">
 				The cycle has no days</h3>
-			<div v-for="(day, index) in days.filter(day => day.cycle_id === cycle.id)" 
+			<!-- <div v-for="(day, index) in days.filter(day => day.cycle_id === cycle.id)"  -->
+			<div v-for="(day, index) in daysInCycle(cycle.id)" 
 				:key="day.id" 
 				class="day-wrapper">
 				<router-link tag="div" 
@@ -46,7 +47,6 @@ export default {
 	},
 	methods: {
 		daysInCycle(id) {
-			// console.log(this.$store.getters.daysInCycle(id))
 			return this.$store.getters.daysInCycle(id)
 		}
 	},

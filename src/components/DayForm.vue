@@ -105,11 +105,18 @@
         </el-row>
 
         <div class="observation__btn-group">
+            <el-button
+                v-if="edit" 
+                type="primary" 
+                @click="editObservation " 
+                class="observation__btn-submit">
+                Edit</el-button>
             <el-button 
-							type="primary" 
-							@click="submitObservation" 
-							class="observation__btn-submit">
-							{{edit? 'Edit' : 'Create'}}</el-button>
+                v-else
+                type="primary" 
+                @click="submitObservation " 
+                class="observation__btn-submit">
+                Create</el-button>
         </div>
     </el-form>
 </template>
@@ -129,9 +136,9 @@ export default {
 		submitObservation() {
 			const dayObs = this.day.observation;
 			const currentDay = {
+                //check it
 				id: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10),
-				// cycle_id: this.currentCycle.id,
-				date: this.$moment(this.$moment(), "YYYY MM DD"),
+				date: Date.now(),
 				observation: {
 					mark: dayObs.mark,
 					menstrual: dayObs.menstrual,
@@ -145,15 +152,38 @@ export default {
 					comment: dayObs.comment
 				}
 			}
-			this.$store.dispatch('addDay', currentDay)
-		}
+            this.$store.dispatch('addDay', currentDay)
+            this.$router.push('/cycles')
+        },
+        editObservation() {
+            const dayObs = this.day.observation
+            const currentDay = {
+                id: this.day.id,
+                cycle_id: this.day.cycle_id,
+                date: this.day.date,
+                observation: {
+                mark: dayObs.mark,
+                menstrual: dayObs.menstrual,
+                indicator: dayObs.indicator,
+                color: dayObs.color,
+                sensation: dayObs.sensation,
+                frequency: dayObs.frequency,
+                peak: dayObs.peak,
+                dayCount: dayObs.dayCount,
+                intercourse: dayObs.intercourse,
+                comment: dayObs.comment
+                }
+            }
+            console.log('edit method called')
+            this.$store.dispatch('editDay', currentDay)
+        },
 	}
 }
 </script>
 
 <style lang="scss" scoped>
-	@import '@/assets/styles/variables.scss';
-  @import '@/assets/styles/general.scss';
+@import '@/assets/styles/variables.scss';
+@import '@/assets/styles/general.scss';
 
  .current-mark {
 	position: relative;

@@ -5,7 +5,7 @@
         :type="cycle.current? 'success' : ''" 
         :icon="cycle.current? 'el-icon-check' : 'el-icon-plus'"
         circle 
-        @click="setCurrentCycle(index)"></el-button>
+        @click="setCurrentCycle(cycle.id)"></el-button>
       <!-- <span v-if="cycle.current" class="cycle__current">Current</span> -->
     </div>
     <span v-if="daysInCycle.length" 
@@ -28,7 +28,7 @@
           <el-button size="mini" 
             type="text" 
             icon="el-icon-check" 
-            @click="setCurrentCycle(index)">
+            @click="setCurrentCycle(cycle.id)">
             {{'Set cycle as current'}}
           </el-button>
         </el-dropdown-item>
@@ -64,8 +64,8 @@ export default {
       }
     },
     methods: {
-      setCurrentCycle(index) {
-        this.$store.dispatch('setCurrentCycle', index)
+      setCurrentCycle(id) {
+        this.$store.dispatch('setCurrentCycle', id)
       },
       deleteCycle(id) {
         this.$store.dispatch('deleteCycle', id)

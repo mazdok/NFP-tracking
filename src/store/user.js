@@ -1,4 +1,6 @@
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import router from '@/router'
 
 export default {
 	state: {
@@ -44,8 +46,9 @@ export default {
 				commit('SET_PROCESSING', false);
 			})
 		},
-		signOut() {
-			firebase.auth().signOut();
+		async signOut({commit}) {
+			await firebase.auth().signOut();
+			router.push('/');
 		},
 		stateChanged({commit, getters}, payload) {
 			if(payload) {

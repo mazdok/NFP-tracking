@@ -5,7 +5,7 @@ export default {
     days: []
   },
   mutations: {
-    'SET_LOADED_BOOKS'(state, payload) {
+    'SET_LOADED_DAYS'(state, payload) {
       state.days = payload;
     },
     'ADD_DAY'(state, payload) {
@@ -16,18 +16,20 @@ export default {
     }
   },
   actions: {
-    setLoadedBooks({commit,getters}) {
+    setLoadedDays({commit,getters}) {
       const userId = getters.getUserId;
 
-      Vue.$db.collection('books').where('creatorId', '==', userId).get().then(querySnapshot => {
-          const books = []
+     Vue.$db.collection('days').where('creatorId', '==', userId).get()
+     .then(querySnapshot => {
+          const days = []
           querySnapshot.forEach(doc => {
             const data = doc.data();
             const book = {
-              'id': data.id,
+              // 'id': data.id,
+              'id': doc.id,
               'creatorId': userId,
               'cycle_id': data.cycle_id,
-              'date': data.date.seconds,
+              'date': data.date.toDate(),
               'observation': {
                 'mark': data.observation.mark,
                 'menstrual': data.observation.menstrual,
@@ -41,47 +43,70 @@ export default {
                 'comment': data.observation.comment
               }
             }
-            books.push(book)
+            days.push(book)
           })
-          commit('SET_LOADED_BOOKS', books);
+          commit('SET_LOADED_DAYS', days);
         })
         .catch(error => {
           console.log(error)
         })
     },
-    addDay({
-      commit,
-      dispatch,
-      getters
-    }, payload) {
-
-      //test check is date is already in cycle
-      // const daysInCycle = state.days.filter(day => day.cycle_id == currentCycle.id);
-      // if(daysInCycle.length > 0) {
-      //   const isDayRepeat = daysInCycle[daysInCycle.length -1].date.isSameOrAfter(payload.date, 'day');
-      //   if(isDayRepeat) {
-      //     console.error('You already created day')
-      //     return
-      //   }
-      // }
-
+    addDay({commit, dispatch, getters}, payload) {
       //check
       if (!getters.cycles.length) {
         dispatch('addCycle');
         dispatch('setCurrentCycle', 0);
       }
 
+      //tes
+      // if (!currentCycle) {
+      //   alert('Please select a current cycle first');
+      //   return;
+      // }
+
       const currentCycle = getters.cycles.find(cycle => cycle.current);
-      if (!currentCycle) {
-        alert('Please select a current cycle first');
-        return;
+      
+      //test check is date is already in cycle
+      const daysInCycle = getters.days.filter(day => day.cycle_id == currentCycle.id);
+
+      if(daysInCycle.length > 0) {
+        let prevDayDate = new Date(daysInCycle[daysInCycle.length -1].date).getDate();
+        let now = new Date().getDate();
+
+        var missedDays = now - prevDayDate;
+        const dayInMs = 86400000;
+        
+        if(prevDayDate >= now - 1) {
+          console.error('You already created day')
+          return
+        }
+
+        for(let i = 0; i < missedDays - 1; i++) {
+          const daysInCycle = getters.days.filter(day => day.cycle_id == currentCycle.id);
+          let prevDay = new Date(daysInCycle[daysInCycle.length -1].date).getTime()
+
+          let missedDay = {
+            id: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10),
+            creatorId: getters.getUserId,
+            cycle_id: currentCycle.id,
+            date:  new Date(prevDay += dayInMs),
+            observation: {}
+          }
+          
+          Vue.$db.collection('days').add(missedDay)
+          .catch((error) => {
+            console.log(error)
+          })
+
+          commit('ADD_DAY', missedDay);
+        }
       }
 
       const day = {
         id: payload.id,
         creatorId: getters.getUserId,
         cycle_id: currentCycle.id,
-        date: payload.date,
+        date: new Date(),
         observation: {
           mark: payload.observation.mark,
           menstrual: payload.observation.menstrual,
@@ -95,9 +120,17 @@ export default {
           comment: payload.observation.comment
         }
       }
+
+      Vue.$db.collection('days').add(day)
+      .catch((error) => {
+        console.error(error)
+      })
+
       commit('ADD_DAY', day);
     },
     editDay({commit,state}, payload) {
+      Vue.$db.collection('days').doc(payload.id).update(payload)
+
       const currentDayIndex = state.days.findIndex(day => day.id == payload.id);
       const updatedDays = [...state.days.slice(0, currentDayIndex), payload, ...state.days.slice(currentDayIndex + 1, state.days.length)];
       commit('EDIT_DAY', updatedDays);
@@ -108,7 +141,11 @@ export default {
       return state.days
     },
     daysInCycle: state => id => {
-      return state.days.filter(day => day.cycle_id === id);
+      const days = state.days.filter(day => day.cycle_id === id);
+      
+      return days.sort(function(a,b){
+        return new Date(a.date) - new Date(b.date);
+      });
     }
   }
 }
