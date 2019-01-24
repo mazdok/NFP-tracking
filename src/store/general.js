@@ -1,17 +1,21 @@
 export default {
   state: {
     processing: false,
-    error: null
+    error: null,
+    isSidebarOpen: false
   },
   mutations: {
     'SET_PROCESSING'(state, payload) {
       state.processing = payload;
     },
     'SET_ERROR'(state, payload) {
-      state.error = payload
+      state.error = payload;
     },
     'CLEAR_ERROR'(state) {
-      state.error = null
+      state.error = null;
+    },
+    'TOGGLE_SIDEBAR'(state, payload) {
+      state.isSidebarOpen = payload;
     }
   },
   actions: {

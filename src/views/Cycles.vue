@@ -22,6 +22,7 @@
 
 <script>
 import AppCycle from '@/components/AppCycle.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   data() {
@@ -29,12 +30,10 @@ export default {
     }
   },
   computed: {
-    getProcessing() {
-      return this.$store.getters.getProcessing
-    },
-    cycles() {
-      return this.$store.getters.cycles
-    }
+    ...mapGetters([
+      'getProcessing',
+      'cycles'
+    ])
   },
   methods: {
     addCycle() {

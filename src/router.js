@@ -6,6 +6,7 @@ import store from './store'
 Vue.use(Router)
 
 const router = new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -16,9 +17,9 @@ const router = new Router({
       }
     },
     {
-      path: '/settings',
-      name: 'settings',
-      component: () => import('./views/Settings.vue'),
+      path: '/info',
+      name: 'information',
+      component: () => import('./views/Information.vue'),
       meta: {
         requireAuth: true
       }

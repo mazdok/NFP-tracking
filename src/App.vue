@@ -3,6 +3,7 @@
       <el-header v-if="isUserAuthenticated">
         <app-header></app-header>
       </el-header>
+      <app-sidebar></app-sidebar>
       
       <el-main>
         <router-view/>
@@ -12,11 +13,13 @@
 
 <script>
 
-import AppHeader from '@/components/AppHeader.vue'
+import AppHeader from '@/components/AppHeader'
+import AppSidebar from '@/components/AppSidebar'
 
 export default {
   components: {
-    AppHeader
+    AppHeader,
+    AppSidebar
   },
   computed: {
     isUserAuthenticated() {
@@ -28,6 +31,8 @@ export default {
 </script>
 
 <style lang="scss">
+  @import '@/assets/styles/variables.scss';
+
   body {
     margin: 0;
     font-family: 'Open Sans', sans-serif;

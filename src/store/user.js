@@ -12,7 +12,7 @@ export default {
 	mutations: {
 		'SET_USER'(state, payload) {
 			state.user.isAuthenticated = true;
-			state.user.uid = payload;
+			state.user.uid = payload.uid;
 		},
 		'UNSET_USER'(state) {
 			state.user = {
@@ -46,13 +46,13 @@ export default {
 				commit('SET_PROCESSING', false);
 			})
 		},
-		async signOut({commit}) {
+		async signOut() {
 			await firebase.auth().signOut();
-			router.push('/');
+			router.push('/welcome');
 		},
-		stateChanged({commit, getters}, payload) {
+		stateChanged({commit}, payload) {
 			if(payload) {
-				commit('SET_USER', payload.uid);
+				commit('SET_USER', payload);
 			} else {
 				commit('UNSET_USER');
 			}

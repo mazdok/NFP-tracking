@@ -46,6 +46,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
     props: {
       cycle: Object,
@@ -64,14 +66,19 @@ export default {
       }
     },
     methods: {
+      ...mapActions({
+        setCycleAsCurrent: 'setCurrentCycle',
+        removeCycle: 'deleteCycle',
+        resizeDaysInCycle: 'resizeCycle'
+      }),
       setCurrentCycle(id) {
-        this.$store.dispatch('setCurrentCycle', id)
+        this.setCycleAsCurrent(id)
       },
       deleteCycle(id) {
-        this.$store.dispatch('deleteCycle', id)
+        this.removeCycle(id)
       },
       resizeCycle(cycleId) {
-        this.$store.dispatch('resizeCycle', cycleId)
+        this.resizeDaysInCycle(cycleId)
       }
     }
 }

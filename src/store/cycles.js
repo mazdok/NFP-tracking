@@ -55,7 +55,7 @@ export default {
       },
       addCycle({commit, getters}) {
         const cycle = {
-          // id: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10),
+          id: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10),
           creatorId: getters.getUserId,
           current: false,
           squeezed: false
@@ -66,7 +66,6 @@ export default {
         .catch((error) => {
           console.log(error)
         })
-        
         commit('ADD_CYCLE', cycle);
       },
       deleteCycle({commit, state}, payload) {
@@ -84,7 +83,6 @@ export default {
             doc.ref.delete()
           })
         })
-
         commit('DELETE_CYCLE', cycles);
       },
       setCurrentCycle({commit}, payload) {
@@ -102,7 +100,6 @@ export default {
             }
           })
         })
-        
         commit('SET_CURRENT_CYCLE', payload);
       },
       resizeCycle({commit}, payload) {
@@ -112,13 +109,11 @@ export default {
           let cycleSqueezed = snap.data().squeezed ? false : true;
           snap.ref.update({squeezed: cycleSqueezed})
         })
-
         commit('RESIZE_CYCLE', payload);
       }
     },
     getters: {
       cycles(state) {
-        // console.log('Cycles getter', state.cycles)
         return state.cycles
       },
       currentCycle(state) {

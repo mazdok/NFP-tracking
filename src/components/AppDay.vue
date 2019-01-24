@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'AppDay',
   props: {
@@ -29,12 +31,10 @@ export default {
     day: Object
   },
   computed: {
-    days() {
-      return this.$store.getters.days
-    },
-    currentCycle() {
-      return this.$store.getters.currentCycle;
-    },
+    ...mapGetters({
+      days: 'days',
+      currentCycle: 'currentCycle'
+    })
   },
   methods: {
     isDayHasImage(day) {

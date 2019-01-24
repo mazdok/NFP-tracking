@@ -19,7 +19,7 @@
 						:class="{'squeezed': cycle.squeezed }"></app-day>
 				</router-link>
 			</div>
-			<div v-if="cycle.current" class="add-day">
+			<div v-show="cycle.current" class="add-day">
 				<router-link to="/">
 					<el-button size="mini" 
 						type="success" 
@@ -96,7 +96,7 @@ export default {
 .days {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: center;
+	justify-content: flex-start;
 }
 
 .day-wrapper {

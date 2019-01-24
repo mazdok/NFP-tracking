@@ -174,7 +174,6 @@ export default {
                 comment: dayObs.comment
                 }
             }
-            console.log('edit method called')
             this.$store.dispatch('editDay', currentDay)
         },
 	}

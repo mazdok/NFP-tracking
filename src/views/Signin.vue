@@ -27,6 +27,7 @@
 
 <script>
 import PageHeader from '@/components/PageHeader'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'signup',
@@ -37,15 +38,11 @@ export default {
     }
   },
   computed: {
-    error() {
-      return this.$store.getters.getError
-    },
-    processing() {
-      return this.$store.getters.getProcessing
-    },
-    isUserAuthenticated() {
-      return this.$store.getters.isUserAuthenticated
-    }
+    ...mapGetters({
+      error: 'getError',
+      processing: 'getProcessing',
+      isUserAuthenticated: 'isUserAuthenticated'
+    })
   },
   watch: {
     isUserAuthenticated(val) {
