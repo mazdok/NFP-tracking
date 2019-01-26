@@ -1,5 +1,10 @@
 <template>
   <div class="cycles-page">
+    <el-alert
+      v-if="getError"
+      :title="getError.message"
+      type="error">
+    </el-alert>
     <h1>Cycles</h1>
     <div class="cycles" v-loading="getProcessing">
       <el-button 
@@ -32,7 +37,8 @@ export default {
   computed: {
     ...mapGetters([
       'getProcessing',
-      'cycles'
+      'cycles',
+      'getError'
     ])
   },
   methods: {

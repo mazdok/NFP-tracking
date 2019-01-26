@@ -28,7 +28,6 @@ db.settings({
   timestampsInSnapshots: true
 })
 
-//test it. allows use data offline
 // db.enablePersistence();
 Vue.$db = db
 Vue.config.productionTip = false

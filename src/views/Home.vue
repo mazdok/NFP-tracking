@@ -1,5 +1,10 @@
 <template>
   <div class="home">
+    <el-alert
+      v-if="getError"
+      :title="getError.message"
+      type="error">
+    </el-alert>
     <el-row type="flex" justify="center">
       <el-col :span="10">
         <!-- DATE -->
@@ -43,6 +48,11 @@ export default {
           comment: ''
         }
       },
+    }
+  },
+  computed: {
+    getError() {
+      return this.$store.getters.getError
     }
   },
   components: {

@@ -6,6 +6,7 @@ $base-border: #DCDFE6;
 $light-border: #E4E7ED;
 $lighter-border: #EBEEF5;
 $extra-light-border: #F2F6FC;
+$light-teal: #a3e1db;
 
 $success: #67C23A;
 $danger: #F56C6C;
@@ -17,3 +18,4 @@ $white: #fff;
 //GRADIENTS
 $gray-gradient: linear-gradient(to right, #fcfcfc 0%, #d3d3d352 100%);
 $green-gradient: linear-gradient(to right, #fcfcfc 0%, #67c23abd 100%);
+$teal-gradient: linear-gradient(135deg, rgba(0,128,128,1) 0%, rgba(96,163,163,1) 100%);

@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import router from '@/router'
 
 export default {
   state: {
@@ -25,7 +26,6 @@ export default {
           querySnapshot.forEach(doc => {
             const data = doc.data();
             const book = {
-              // 'id': data.id,
               'id': doc.id,
               'creatorId': userId,
               'cycle_id': data.cycle_id,
@@ -48,62 +48,96 @@ export default {
           commit('SET_LOADED_DAYS', days);
         })
         .catch(error => {
-          console.log(error)
+          commit('SET_ERROR', error);
         })
     },
     addDay({commit, dispatch, getters}, payload) {
-      //check
-      if (!getters.cycles.length) {
-        dispatch('addCycle');
-        dispatch('setCurrentCycle', 0);
-      }
+      const userId = getters.getUserId;
 
-      //tes
-      // if (!currentCycle) {
-      //   alert('Please select a current cycle first');
-      //   return;
-      // }
+      //create a cycle and a day IF there is NO CYCLES
+      if (!getters.cycles.length) {
+        return new Promise((res) => {
+          dispatch('addCycle');
+          res();
+        })
+        .then(() => {
+          Vue.$db.collection('cycles').where('creatorId', '==', userId).get()
+          .then((querySnapshot) => {
+            let cycleId = null;
+            querySnapshot.forEach((doc) => {
+              //get id of created cycle
+              cycleId = doc.data().id;
+              //update current status
+              doc.ref.update({
+                current: true
+              })
+              //update UI
+              commit('SET_CURRENT_CYCLE', cycleId);
+            })
+            dispatch('addDay', payload)
+          })
+          .catch(error => {
+            commit('SET_ERROR', error);
+          })
+        })
+        .catch(error => {
+          commit('SET_ERROR', error);
+        }) 
+      }
 
       const currentCycle = getters.cycles.find(cycle => cycle.current);
       
-      //test check is date is already in cycle
+      if (!currentCycle) {
+        const error = new Error('Please select a current cycle first');
+        commit('SET_ERROR', error);
+        return;
+      }
+      
+      //test check is day already in cycle
       const daysInCycle = getters.days.filter(day => day.cycle_id == currentCycle.id);
-
+      
       if(daysInCycle.length > 0) {
         let prevDayDate = new Date(daysInCycle[daysInCycle.length -1].date).getDate();
         let now = new Date().getDate();
 
         var missedDays = now - prevDayDate;
-        const dayInMs = 86400000;
+        const DAY_IN_MS = 86400000;
         
-        if(prevDayDate >= now - 1) {
-          console.error('You already created day')
+        if(prevDayDate === now) {
+          const error = new Error('You can only create one card per day in cycle');
+          commit('SET_ERROR', error);
           return
         }
 
-        for(let i = 0; i < missedDays - 1; i++) {
-          const daysInCycle = getters.days.filter(day => day.cycle_id == currentCycle.id);
-          let prevDay = new Date(daysInCycle[daysInCycle.length -1].date).getTime()
-
-          let missedDay = {
-            id: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10),
-            creatorId: getters.getUserId,
-            cycle_id: currentCycle.id,
-            date:  new Date(prevDay += dayInMs),
-            observation: {}
+        if(missedDays > 1) {
+          for(let i = 0; i < missedDays - 1; i++) {
+            const daysInCycle = getters.days.filter(day => day.cycle_id == currentCycle.id);
+            let prevDay = new Date(daysInCycle[daysInCycle.length -1].date).getTime();
+            
+            //add empty day for every missed day
+            let missedDay = {
+              id: null,
+              creatorId: getters.getUserId,
+              cycle_id: currentCycle.id,
+              date:  new Date(prevDay += DAY_IN_MS),
+              observation: {}
+            }
+            
+            const dayRef = Vue.$db.collection('days').doc(); 
+            dayRef.set({...missedDay, id: dayRef.id})
+            .then(() => {
+              missedDay.id = dayRef.id;
+              commit('ADD_DAY', missedDay);
+            })
+            .catch((error) => {
+              commit('SET_ERROR', error);
+            })
           }
-          
-          Vue.$db.collection('days').add(missedDay)
-          .catch((error) => {
-            console.log(error)
-          })
-
-          commit('ADD_DAY', missedDay);
         }
       }
 
       const day = {
-        id: payload.id,
+        id: null,
         creatorId: getters.getUserId,
         cycle_id: currentCycle.id,
         date: new Date(),
@@ -121,12 +155,17 @@ export default {
         }
       }
 
-      Vue.$db.collection('days').add(day)
-      .catch((error) => {
-        console.error(error)
+      const dayRef = Vue.$db.collection('days').doc();
+      dayRef.set({...day, id: dayRef.id})
+      .then(() => {
+        day.id = dayRef.id;
+        commit('ADD_DAY', day);
       })
-
-      commit('ADD_DAY', day);
+      .catch((error) => {
+        commit('SET_ERROR', error);
+      })
+      //redirect
+      router.push('/cycles')
     },
     editDay({commit,state}, payload) {
       Vue.$db.collection('days').doc(payload.id).update(payload)
@@ -138,14 +177,12 @@ export default {
   },
   getters: {
     days(state) {
-      return state.days
-    },
-    daysInCycle: state => id => {
-      const days = state.days.filter(day => day.cycle_id === id);
-      
-      return days.sort(function(a,b){
+      return state.days.sort(function(a,b){
         return new Date(a.date) - new Date(b.date);
       });
+    },
+    daysInCycle: state => id => {
+      return state.days.filter(day => day.cycle_id === id);
     }
   }
 }

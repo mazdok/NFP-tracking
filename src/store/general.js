@@ -1,3 +1,5 @@
+import { stat } from "fs";
+
 export default {
   state: {
     processing: false,
@@ -10,6 +12,9 @@ export default {
     },
     'SET_ERROR'(state, payload) {
       state.error = payload;
+      // setTimeout(() => {
+      //   state.error = null;
+      // }, 4000)
     },
     'CLEAR_ERROR'(state) {
       state.error = null;

@@ -34,7 +34,7 @@ export default {
        Vue.$db.collection('cycles').where('creatorId', '==', userId)
        .get()
        .then(querySnapshot => {
-          const cycles = []
+        const cycles = []
           querySnapshot.forEach(doc => {
             const data = doc.data();
             const cycle = {
@@ -49,30 +49,37 @@ export default {
           commit('SET_PROCESSING', false);
         })
         .catch(error => {
-          console.log(error)
+          commit('SET_ERROR', error);
           commit('SET_PROCESSING', false);
         })
       },
       addCycle({commit, getters}) {
         const cycle = {
-          id: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10),
+          id: null,
           creatorId: getters.getUserId,
           current: false,
           squeezed: false
         }
 
-       Vue.$db.collection('cycles').add(cycle).then((data) => {
+        const ref = Vue.$db.collection('cycles').doc();
+        //assign id of newly created doc to cycle 
+        ref.set({...cycle, id: ref.id})
+        .then(() => { 
+          //update local cycle id and add it to UI
+          cycle.id = ref.id;
+          commit('ADD_CYCLE', cycle);
         })
         .catch((error) => {
-          console.log(error)
+          commit('SET_ERROR', error);
         })
-        commit('ADD_CYCLE', cycle);
       },
       deleteCycle({commit, state}, payload) {
         const cycles = state.cycles.filter(cycle => cycle.id != payload);
-        
+
         Vue.$db.collection('cycles').doc(payload).delete()
-        .catch(error => console.log(error))
+        .catch(error => {
+          commit('SET_ERROR', error);
+        })
         
         //delete all days in cycle as well
         Vue.$db.collection('days')
@@ -83,11 +90,16 @@ export default {
             doc.ref.delete()
           })
         })
+        .catch(error => {
+          commit('SET_ERROR', error);
+        });
         commit('DELETE_CYCLE', cycles);
       },
-      setCurrentCycle({commit}, payload) {
-      
-       Vue.$db.collection('cycles').get()
+      setCurrentCycle({commit, getters}, payload) {
+        const userId = getters.getUserId;
+
+        Vue.$db.collection('cycles').where('creatorId', '==', userId)
+        .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
             doc.ref.update({
@@ -100,15 +112,20 @@ export default {
             }
           })
         })
+        .catch(error => {
+          commit('SET_ERROR', error);
+        });
         commit('SET_CURRENT_CYCLE', payload);
       },
       resizeCycle({commit}, payload) {
-       
         Vue.$db.collection('cycles').doc(payload).get()
         .then(snap => {
           let cycleSqueezed = snap.data().squeezed ? false : true;
           snap.ref.update({squeezed: cycleSqueezed})
         })
+        .catch(error => {
+          commit('SET_ERROR', error);
+        });
         commit('RESIZE_CYCLE', payload);
       }
     },

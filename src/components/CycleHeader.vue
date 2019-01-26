@@ -75,7 +75,23 @@ export default {
         this.setCycleAsCurrent(id)
       },
       deleteCycle(id) {
-        this.removeCycle(id)
+        this.$confirm('This will permanently delete the cycle and all days inside. Continue?', 'Warning', {
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'Cancel',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: 'Delete completed'
+          });
+          //remove cycle
+          this.removeCycle(id)
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: 'Delete canceled'
+          });          
+        });
       },
       resizeCycle(cycleId) {
         this.resizeDaysInCycle(cycleId)

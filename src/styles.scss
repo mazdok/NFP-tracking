@@ -9,10 +9,16 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 // overwrite styles
 .el-header {
     padding: 0;
+    z-index: 2;
+}
+
+.el-menu {
+    border-right: none;
 }
 
 .el-menu.el-menu--horizontal {
     position: fixed;
+    top: -1px;
     width: 100%;
     display: flex;
     justify-content: center;

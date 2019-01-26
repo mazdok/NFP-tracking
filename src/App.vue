@@ -7,6 +7,9 @@
       
       <el-main>
         <router-view/>
+        <transition name="el-fade-in-linear">
+          <div class="overlay" v-show="isSidebarOpen" @click="hideSidebar"></div>
+        </transition>
       </el-main>
     </el-container>
 </template>
@@ -15,6 +18,7 @@
 
 import AppHeader from '@/components/AppHeader'
 import AppSidebar from '@/components/AppSidebar'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -22,8 +26,16 @@ export default {
     AppSidebar
   },
   computed: {
+    ...mapState({
+      isSidebarOpen: state => state.generalModule.isSidebarOpen,
+    }),
     isUserAuthenticated() {
       return this.$store.getters.isUserAuthenticated
+    }
+  },
+  methods: {
+    hideSidebar() {
+      this.$store.commit('TOGGLE_SIDEBAR', false)
     }
   }
 }
@@ -33,6 +45,10 @@ export default {
 <style lang="scss">
   @import '@/assets/styles/variables.scss';
 
+  :focus {
+    outline: none;
+  }
+
   body {
     margin: 0;
     font-family: 'Open Sans', sans-serif;
@@ -40,5 +56,15 @@ export default {
 
   #app {
     flex-direction: column;
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .7);
+    transition: all .5s ease-in-out;
   }
 </style>

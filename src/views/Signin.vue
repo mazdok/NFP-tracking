@@ -18,7 +18,7 @@
           <el-input v-model="password" type="password"></el-input>
         </el-form-item>
         <el-form-item class="button-wrapper">
-          <el-button type="primary" @click="signIn" :disabled="processing">Login</el-button>
+          <el-button type="primary" @click="signIn" :disabled="processing || !formValid">Login</el-button>
         </el-form-item>
       </el-form>
     </el-row>
@@ -42,7 +42,10 @@ export default {
       error: 'getError',
       processing: 'getProcessing',
       isUserAuthenticated: 'isUserAuthenticated'
-    })
+    }),
+    formValid() {
+      return this.email && this.password
+    }
   },
   watch: {
     isUserAuthenticated(val) {

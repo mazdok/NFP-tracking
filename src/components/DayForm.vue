@@ -136,8 +136,7 @@ export default {
 		submitObservation() {
 			const dayObs = this.day.observation;
 			const currentDay = {
-                //check it
-				id: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10),
+				id: null,
 				date: Date.now(),
 				observation: {
 					mark: dayObs.mark,
@@ -153,7 +152,6 @@ export default {
 				}
 			}
             this.$store.dispatch('addDay', currentDay)
-            this.$router.push('/cycles')
         },
         editObservation() {
             const dayObs = this.day.observation
@@ -174,7 +172,22 @@ export default {
                 comment: dayObs.comment
                 }
             }
-            this.$store.dispatch('editDay', currentDay)
+            this.$confirm('Do you want to edit a day? Changes cannot be reversed', 'Warning', {
+                confirmButtonText: 'OK',
+                cancelButtonText: 'Cancel',
+                type: 'warning'
+            }).then(() => {
+                this.$message({
+                    type: 'success',
+                    message: 'The data has been successfully updated'
+                });
+                this.$store.dispatch('editDay', currentDay)
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: 'Canceled'
+                });
+            });
         },
 	}
 }
