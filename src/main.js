@@ -5,7 +5,7 @@ import store from './store'
 import Element from 'element-ui'
 import ElementUI from 'element-ui'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faBars, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faSignOutAlt, faHeart} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import './registerServiceWorker'
 import './styles.scss'
@@ -19,7 +19,7 @@ Vue.use(VueScrollTo, scrollToConfig)
 Vue.use(require('vue-moment'));
 Vue.use(ElementUI)
 Vue.use(Element)
-library.add([faBars, faSignOutAlt])
+library.add([faBars, faSignOutAlt, faHeart])
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 const firebaseApp = firebase.initializeApp(firebaseConfig)

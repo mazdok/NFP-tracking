@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import router from '@/router'
+import scrollToTop from '@/helpers/scrollToTop'
 
 export default {
   state: {
@@ -40,7 +41,8 @@ export default {
                 'peak': data.observation.peak,
                 'dayCount': data.observation.dayCount,
                 'intercourse': data.observation.intercourse,
-                'comment': data.observation.comment
+                'comment': data.observation.comment,
+                'sex': data.observation.sex
               }
             }
             days.push(book)
@@ -67,7 +69,6 @@ export default {
             querySnapshot.forEach((doc) => {
               //get id of created cycle
               cycleId = doc.data().id;
-              //update current status
               doc.ref.update({
                 current: true
               })
@@ -91,10 +92,11 @@ export default {
       if (!currentCycle) {
         const error = new Error('Please select a current cycle first');
         commit('SET_ERROR', error);
+        scrollToTop();
         return;
       }
       
-      //test check is day already in cycle
+      //check is day already in cycle
       const daysInCycle = getters.days.filter(day => day.cycle_id == currentCycle.id);
       
       if(daysInCycle.length > 0) {
@@ -105,8 +107,9 @@ export default {
         const DAY_IN_MS = 86400000;
         
         if(prevDayDate === now) {
-          const error = new Error('You can only create one card per day in cycle');
+          const error = new Error('You can only create one card per day in a cycle');
           commit('SET_ERROR', error);
+          scrollToTop();
           return
         }
 
@@ -152,7 +155,8 @@ export default {
           peak: payload.observation.peak,
           dayCount: payload.observation.dayCount,
           intercourse: payload.observation.intercourse,
-          comment: payload.observation.comment
+          comment: payload.observation.comment,
+          sex: payload.observation.sex
         }
       }
 

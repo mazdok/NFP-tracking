@@ -27,7 +27,7 @@
         </div>
         <el-form-item label="Indicator">
             <el-select v-model="day.observation.indicator" placeholder="Please select an option">
-                <el-option label="N/A" value="null"></el-option>
+                <el-option label="N/A" value=""></el-option>
                 <el-option label="0" value="0"></el-option>
                 <el-option label="2" value="2"></el-option>
                 <el-option label="2W" value="2W"></el-option>
@@ -42,7 +42,7 @@
         </el-form-item>
         <el-form-item label="Color">
             <el-select v-model="day.observation.color" placeholder="Please select an option">
-                <el-option label="N/A" value="null"></el-option>
+                <el-option label="N/A" value=""></el-option>
                 <el-option label="B" value="B"></el-option>
                 <el-option label="C" value="C"></el-option>
                 <el-option label="CK" value="CK"></el-option>
@@ -54,7 +54,7 @@
         </el-form-item>
         <el-form-item label="Sensation">
             <el-radio-group v-model="day.observation.sensation" class="day-form__sensation">
-                <el-radio :label="null">N/A</el-radio>
+                <el-radio label="">N/A</el-radio>
                 <el-radio label="L"></el-radio>
                 <el-radio label="G"></el-radio>
                 <el-radio label="P"></el-radio>
@@ -62,7 +62,7 @@
         </el-form-item>
         <el-form-item label="Frequency">
             <el-select v-model="day.observation.frequency" placeholder="Please select an option">
-                <el-option label="N/A" value="null"></el-option>
+                <el-option label="N/A" value=""></el-option>
                 <el-option label="X1" value="X1"></el-option>
                 <el-option label="X2" value="X2"></el-option>
                 <el-option label="X3" value="X3"></el-option>
@@ -77,7 +77,7 @@
                 <div v-show="showMore">
                     <el-form-item label="Menstrual">
                         <el-select v-model="day.observation.menstrual" placeholder="Please select an option">
-                            <el-option label="N/A" value="null"></el-option>
+                            <el-option label="N/A" value=""></el-option>
                             <el-option label="H" value="H"></el-option>
                             <el-option label="M" value="M"></el-option>
                             <el-option label="L" value="L"></el-option>
@@ -85,32 +85,31 @@
                             <el-option label="B" value="B"></el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item label="Peak">
-                        <el-radio-group v-model="day.observation.peak">
-                            <el-radio :label="false">No</el-radio>
-                            <el-radio :label="true">Yes</el-radio>
-                        </el-radio-group>
-                    </el-form-item>
-                    <el-form-item label="Day" v-if="day.observation.peak">
-                        <!-- <el-radio-group v-model="day.observation.dayCount">
-                            <el-radio label="0"></el-radio>
-                            <el-radio label="1"></el-radio>
-                            <el-radio label="2"></el-radio>
-                            <el-radio label="3"></el-radio>
-                        </el-radio-group> -->
-                        <el-slider
-                            v-model="day.observation.dayCount"
-                            :step="1"
-                            :max="3"
-                            show-stops>
-                        </el-slider>
-                    </el-form-item>
-                    <el-form-item label="Intercourse">
-                        <el-radio-group v-model="day.observation.intercourse">
-                            <el-radio :label="false">No</el-radio>
-                            <el-radio :label="true">Yes</el-radio>
-                        </el-radio-group>
-                    </el-form-item>
+                    <el-row :gutter="20">
+                        <el-col :span="8">
+                            <el-form-item label="Peak">
+                                <el-checkbox v-model="day.observation.peak"></el-checkbox>
+                            </el-form-item>
+                        </el-col>
+                         <el-col :span="8">
+                            <el-form-item label="Intercourse">
+                            <el-checkbox v-model="day.observation.intercourse"></el-checkbox>
+                        </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <el-form-item label="Sex">
+                                <el-checkbox v-model="day.observation.sex"></el-checkbox>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-slider
+                        v-if="day.observation.peak"
+                        v-model="day.observation.dayCount"
+                        :step="1"
+                        :max="3"
+                        show-stops>
+                    </el-slider>
+                    
                     <el-input type="textarea" :rows="2" placeholder="You can leave here a comment" v-model="day.observation.comment"></el-input>
                 </div>
             </el-collapse-transition>
@@ -164,7 +163,8 @@ export default {
 					peak: dayObs.peak,
 					dayCount: dayObs.dayCount,
 					intercourse: dayObs.intercourse,
-					comment: dayObs.comment
+                    comment: dayObs.comment,
+                    sex: dayObs.sex
 				}
 			}
             this.$store.dispatch('addDay', currentDay)
@@ -185,7 +185,8 @@ export default {
                 peak: dayObs.peak,
                 dayCount: dayObs.dayCount,
                 intercourse: dayObs.intercourse,
-                comment: dayObs.comment
+                comment: dayObs.comment,
+                sex: dayObs.sex
                 }
             }
             this.$confirm('Do you want to edit a day? Changes cannot be reversed', 'Warning', {
@@ -222,10 +223,13 @@ export default {
 	width: 70px;
 	height: 128px;
 	text-align: center;
-	padding: 10px;
+	padding: 10px 10px 20px 10px;
 	border: 1px solid $lighter-border;
 	border-radius: 5px;
-	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+    & .day__peak {
+        top: 45%;
+    }
 }
 
 .day-form {

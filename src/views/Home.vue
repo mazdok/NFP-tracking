@@ -42,7 +42,8 @@ export default {
           peak: false,
           dayCount: 0,
           intercourse: false,
-          comment: ''
+          comment: '',
+          sex: false
         }
       },
     }

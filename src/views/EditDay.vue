@@ -7,8 +7,6 @@
       </el-col>
     </el-row>
     <el-row type="flex" justify="center">
-      <!-- DAY -->
-      <app-day :day="day"></app-day>
     </el-row>
     <!-- DAY FORM -->
     <day-form :day="day" :edit="true"></day-form>
@@ -39,7 +37,8 @@ export default {
           peak: false,
           dayCount: 0,
           intercourse: false,
-          comment: ''
+          comment: '',
+          sex: false
         }
       }
     }

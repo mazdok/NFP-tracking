@@ -32,3 +32,14 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 .day-form__radio-mark .el-radio__input {
     display: none;
 }
+
+@media screen and (max-width: 768px) {
+    .el-message-box__wrapper {
+        padding: 15px;
+    }
+
+    .el-message-box {
+        width: unset;
+        max-width: 420px;
+    }
+}
