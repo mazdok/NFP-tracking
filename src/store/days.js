@@ -57,13 +57,13 @@ export default {
       //create a cycle and a day IF there is NO CYCLES
       if (!getters.cycles.length) {
         return new Promise((res) => {
-          dispatch('addCycle');
+          dispatch('addCycle')
           res();
         })
         .then(() => {
+          let cycleId = null;
           Vue.$db.collection('cycles').where('creatorId', '==', userId).get()
           .then((querySnapshot) => {
-            let cycleId = null;
             querySnapshot.forEach((doc) => {
               //get id of created cycle
               cycleId = doc.data().id;
@@ -71,9 +71,10 @@ export default {
               doc.ref.update({
                 current: true
               })
-              //update UI
-              commit('SET_CURRENT_CYCLE', cycleId);
             })
+          })
+          .then(async () => {
+            await commit('SET_CURRENT_CYCLE', cycleId);
             dispatch('addDay', payload)
           })
           .catch(error => {

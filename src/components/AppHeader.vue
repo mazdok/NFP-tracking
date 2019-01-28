@@ -15,6 +15,16 @@
         </router-link>
       </div>
     </el-menu-item>
+
+    <el-menu-item
+      index="3"
+      class="nav-cycles">
+      <router-link to="/cycles">
+          <el-button 
+          icon="el-icon-menu" 
+          type="text"></el-button>
+        </router-link>
+    </el-menu-item>
     <!-- <el-menu-item index="3" class="hide-active-border"> -->
         <!-- <button @click="signOut">Out</button> -->
       <!-- <el-dropdown  trigger="click"> -->
@@ -94,5 +104,10 @@ export default {
 
   .hide-active-border {
     border-bottom: none !important;
+  }
+
+  .nav-cycles {
+    position: absolute;
+    right: 0;
   }
 </style>

@@ -12,9 +12,9 @@ export default {
     },
     'SET_ERROR'(state, payload) {
       state.error = payload;
-      // setTimeout(() => {
-      //   state.error = null;
-      // }, 4000)
+      setTimeout(() => {
+        state.error = null;
+      }, 5000)
     },
     'CLEAR_ERROR'(state) {
       state.error = null;

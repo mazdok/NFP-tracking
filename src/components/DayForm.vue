@@ -1,19 +1,25 @@
 <template>
     <el-form ref="form" :model="day.observation" label-width="80px" class="day-form">
         <div class="marks">
+            <!-- DAY -->
+            <app-day class="current-mark" :day="day"></app-day>
             <el-radio-group v-model="day.observation.mark" class="marks__wrapper">
-                <el-radio :label="'red'" class="day-form__radio-mark">
-                    <div class="day-form__mark red"></div>
-                </el-radio>
-                <el-radio :label="'green'" class="day-form__radio-mark">
-                    <div class="day-form__mark green"></div>
-                </el-radio>
-                <el-radio :label="'white'" class="day-form__radio-mark">
-                    <div class="day-form__mark white"></div>
-                </el-radio>
-                <el-radio :label="'lightgreen'" class="day-form__radio-mark">
-                    <div class="day-form__mark lightgreen"></div>
-                </el-radio>
+                <div>
+                    <el-radio :label="'red'" class="day-form__radio-mark">
+                        <div class="day-form__mark red"></div>
+                    </el-radio>
+                    <el-radio :label="'green'" class="day-form__radio-mark">
+                        <div class="day-form__mark green"></div>
+                    </el-radio>
+                </div>
+                <div>
+                    <el-radio :label="'white'" class="day-form__radio-mark">
+                        <div class="day-form__mark white"></div>
+                    </el-radio>
+                    <el-radio :label="'lightgreen'" class="day-form__radio-mark">
+                        <div class="day-form__mark lightgreen"></div>
+                    </el-radio>
+                </div>
                 <!-- <el-radio>
             <div class="day-form__mark day-form__mark--yellow"></div>
           </el-radio> -->
@@ -47,7 +53,7 @@
             </el-select>
         </el-form-item>
         <el-form-item label="Sensation">
-            <el-radio-group v-model="day.observation.sensation">
+            <el-radio-group v-model="day.observation.sensation" class="day-form__sensation">
                 <el-radio :label="null">N/A</el-radio>
                 <el-radio label="L"></el-radio>
                 <el-radio label="G"></el-radio>
@@ -85,13 +91,19 @@
                             <el-radio :label="true">Yes</el-radio>
                         </el-radio-group>
                     </el-form-item>
-                    <el-form-item label="Days after peak" v-if="day.observation.peak">
-                        <el-radio-group v-model="day.observation.dayCount">
+                    <el-form-item label="Day" v-if="day.observation.peak">
+                        <!-- <el-radio-group v-model="day.observation.dayCount">
                             <el-radio label="0"></el-radio>
                             <el-radio label="1"></el-radio>
                             <el-radio label="2"></el-radio>
                             <el-radio label="3"></el-radio>
-                        </el-radio-group>
+                        </el-radio-group> -->
+                        <el-slider
+                            v-model="day.observation.dayCount"
+                            :step="1"
+                            :max="3"
+                            show-stops>
+                        </el-slider>
                     </el-form-item>
                     <el-form-item label="Intercourse">
                         <el-radio-group v-model="day.observation.intercourse">
@@ -122,6 +134,7 @@
 </template>
 
 <script>
+import AppDay from '@/components/AppDay.vue'
 export default {
 	props: {
 		day: Object,
@@ -131,7 +144,10 @@ export default {
 		return {
 			showMore: false
 		}
-	},
+    },
+    components: {
+        AppDay
+    },
 	methods: {
 		submitObservation() {
 			const dayObs = this.day.observation;
@@ -204,8 +220,7 @@ export default {
 	justify-content: space-between;
 	align-items: center;
 	width: 70px;
-	height: 140px;
-	margin-bottom: 1rem;
+	height: 128px;
 	text-align: center;
 	padding: 10px;
 	border: 1px solid $lighter-border;
@@ -214,20 +229,31 @@ export default {
 }
 
 .day-form {
-	margin-top: 1rem;
 	&__mark {
 		@extend .current-mark;
 		width: 40px;
 		height: 40px;
-	}
+    }
+    
+    &__sensation {
+        & .el-radio + .el-radio {
+            margin-left: 15px; 
+        }
+    }
 }
 
 .marks {
-	&__wrapper {
+	display: flex;
+    align-items: center;
+    justify-content: space-around;
+    max-width: 280px;
+    margin: 0 auto 1rem;
+
+    &__wrapper {
 		display: flex;
+        flex-direction: column;
 		flex-wrap: wrap;
 		justify-content: space-between;
-		width: 100%;
 	}
 }
 
@@ -249,5 +275,9 @@ export default {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+}
+
+.el-select {
+    width: 100%;
 }
 </style>

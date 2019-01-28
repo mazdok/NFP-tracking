@@ -12,8 +12,6 @@
       </el-col>
     </el-row>
     <el-row type="flex" justify="center">
-      <!-- DAY -->
-      <app-day class="current-mark" :day="day"></app-day>
     </el-row>
     <el-row>
       <!-- DAY FORM -->
@@ -24,7 +22,6 @@
 
 <script>
 // @ is an alias to /src
-import AppDay from '@/components/AppDay.vue'
 import DayForm from '@/components/DayForm.vue'
 import AppDate from '@/components/AppDate.vue'
 
@@ -56,7 +53,6 @@ export default {
     }
   },
   components: {
-    AppDay,
     DayForm,
     AppDate
   }
