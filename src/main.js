@@ -14,7 +14,9 @@ import 'firebase/firestore'
 import firebaseConfig from './config/firebase'
 import VueScrollTo from 'vue-scrollto'
 import scrollToConfig from './config/scrollToConfig'
+import { VueHammer } from 'vue2-hammer'
 
+Vue.use(VueHammer)
 Vue.use(VueScrollTo, scrollToConfig)
 Vue.use(require('vue-moment'));
 Vue.use(ElementUI)

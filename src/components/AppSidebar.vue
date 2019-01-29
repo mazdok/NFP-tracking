@@ -1,11 +1,13 @@
 <template>
   <div>
+    <div class="swipe-block" v-hammer:swipe.right="onSwipeRight"></div>
     <el-menu
       v-show="isUserAuthenticated"
       class="sidebar-menu" 
       :class="{'open': isSidebarOpen}"
       default-active="/"
-      router>
+      router
+      v-hammer:swipe.left="onSwipeLeft">
       <div class="sidebar-user">
         <div class="sidebar-user__info">
           <p class="sidebar-user__name">{{ getUser.name }}</p>
@@ -105,7 +107,13 @@ export default {
 				})
 			})
       this.$store.commit('TOGGLE_SIDEBAR', false)
-		}
+    },
+    onSwipeLeft() {
+      this.$store.commit('TOGGLE_SIDEBAR', false)
+    },
+    onSwipeRight() {
+      this.$store.commit('TOGGLE_SIDEBAR', true)
+    }
   }
 }
 </script>
@@ -151,5 +159,11 @@ export default {
     font-size: 1.25rem;
     color: $regular-text;
     text-align: left !important;
+  }
+
+  .swipe-block {
+    position: fixed;
+    height: 100%;
+    width: 20%;
   }
 </style>

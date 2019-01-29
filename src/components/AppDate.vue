@@ -1,7 +1,7 @@
 <template>
   <div class="date">
     <!-- <i class="el-icon-arrow-left"></i> -->
-    <span>{{today | moment("DD.MM.YYYY")}}</span>
+    <span>{{today | moment("ddd MM.YYYY")}}</span>
     <!-- <i class="el-icon-arrow-right"></i> -->
   </div>
 </template>
@@ -10,7 +10,7 @@
 export default {
   computed: {
     today() {
-      return this.$moment(this.$moment(), "YYYY MM DD")
+      return new Date()
     }
   }
 }
