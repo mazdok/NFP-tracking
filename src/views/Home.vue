@@ -5,6 +5,7 @@
       :title="getError.message"
       type="error">
     </el-alert>
+    <h1 class="hidden-sm-and-down">Add Day</h1>
     <el-row type="flex" justify="center">
       <el-col :span="10">
         <!-- DATE -->

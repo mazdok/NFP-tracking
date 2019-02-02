@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import Element from 'element-ui'
 import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/display.css';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBars, faSignOutAlt, faHeart} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'

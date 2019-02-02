@@ -25,6 +25,7 @@ export default {
     justify-content: center;
     align-items: center;
     margin-bottom: .5rem;
+    
     i {
       color: lightgray;
       padding: 0 5px;
@@ -33,6 +34,10 @@ export default {
       &:active {
         color: unset;
       }
+    }
+
+    @media screen and (min-width: 768px) {
+      margin: 1rem 0 2rem;
     }
   }
 </style>

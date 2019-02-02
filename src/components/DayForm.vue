@@ -291,11 +291,13 @@ export default {
 		height: 40px;
     }
     
-    // &__sensation {
-    //     & .el-radio + .el-radio {
-    //         margin-left: 15px; 
-    //     }
-    // }
+    @media screen and (min-width: 768px) {
+        max-width: 700px;
+        margin: 0 auto;
+        box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.1);
+        padding: 1.5rem 1rem 2rem;
+        border-radius: 5px;
+    }
 }
 
 .marks {

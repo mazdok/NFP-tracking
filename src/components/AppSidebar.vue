@@ -124,10 +124,11 @@ export default {
   .sidebar-menu {
     position: fixed;
     width: 65vw;
+    max-width: 300px;
+    min-width: 180px;
     height: 100%;
     z-index: 2;
     background: #fff;
-    // border-right: solid 1px #e6e6e6;
     transform: translateX(-101%);
     transition: all .3s ease-in-out;
     &.open {
