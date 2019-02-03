@@ -187,6 +187,9 @@
 <script>
 import AppDay from '@/components/AppDay.vue'
 export default {
+    components: {
+        AppDay
+    },
 	props: {
 		day: Object,
 		edit: Boolean
@@ -195,9 +198,6 @@ export default {
 		return {
 			showMore: false
 		}
-    },
-    components: {
-        AppDay
     },
 	methods: {
 		submitObservation() {
@@ -257,7 +257,7 @@ export default {
                     message: 'Canceled'
                 });
             });
-        },
+        }
 	}
 }
 </script>

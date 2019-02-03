@@ -15,12 +15,15 @@
 
 <script>
 // @ is an alias to /src
-import AppDay from '@/components/AppDay.vue';
 import DayForm from '@/components/DayForm.vue';
 import AppDate from '@/components/AppDate.vue';
 
 export default {
   name: 'edit-day',
+  components: {
+    DayForm,
+    AppDate
+  },
   data() {
     return {
       day: {
@@ -47,11 +50,6 @@ export default {
     days() {
       return this.$store.getters.days
     },
-  },
-  components: {
-    AppDay,
-    DayForm,
-    AppDate
   },
   created() {
     if(this.days.length) {

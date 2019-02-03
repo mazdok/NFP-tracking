@@ -36,6 +36,10 @@ import CycleHeader from '@/components/CycleHeader.vue'
 import AppDay from '@/components/AppDay.vue'
 
 export default {
+	components: {
+		AppDay,
+		CycleHeader
+	},
 	props: {
 		cycle: Object,
 		index: Number
@@ -49,10 +53,6 @@ export default {
 		daysInCycle(id) {
 			return this.$store.getters.daysInCycle(id)
 		}
-	},
-	components: {
-		AppDay,
-		CycleHeader
 	}
 }
 </script>

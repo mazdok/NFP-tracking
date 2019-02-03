@@ -30,9 +30,8 @@ import AppCycle from '@/components/AppCycle.vue'
 import { mapGetters } from 'vuex'
 
 export default {
-  data() {
-    return {
-    }
+  components: {
+    AppCycle  
   },
   computed: {
     ...mapGetters([
@@ -45,9 +44,6 @@ export default {
     addCycle() {
       this.$store.dispatch('addCycle')
     },
-  },
-  components: {
-    AppCycle  
   }
 }
 </script>

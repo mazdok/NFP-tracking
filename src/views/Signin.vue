@@ -31,6 +31,9 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'signup',
+  components: {
+    PageHeader
+  },
   data() {
     return {
       email: null,
@@ -61,9 +64,6 @@ export default {
       }
       this.$store.dispatch('signIn', user)
     }
-  },
-  components: {
-    PageHeader
   }
 }
 </script>

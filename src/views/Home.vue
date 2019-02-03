@@ -28,6 +28,10 @@ import AppDate from '@/components/AppDate.vue'
 
 export default {
   name: 'home',
+  components: {
+    DayForm,
+    AppDate
+  },
   data() {
     return {
       day: {
@@ -53,10 +57,6 @@ export default {
     getError() {
       return this.$store.getters.getError
     }
-  },
-  components: {
-    DayForm,
-    AppDate
   }
 }
 </script>
