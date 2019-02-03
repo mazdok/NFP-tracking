@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Home from './views/Home'
 import store from './store'
 
 Vue.use(Router)
@@ -27,7 +27,7 @@ const router = new Router({
     {
       path: '/cycles',
       name: 'cycles',
-      component: () => import(/* webpackChunkName: "about" */ './views/Cycles.vue'),
+      component: () => import(/* webpackChunkName: "about" */ './views/Cycles'),
       meta: {
         requireAuth: true
       }

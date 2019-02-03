@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import CycleHeader from '@/components/CycleHeader.vue'
+import CycleHeader from '@/views/Cycles/CycleHeader.vue'
 import AppDay from '@/components/AppDay.vue'
 
 export default {
@@ -43,11 +43,6 @@ export default {
 	props: {
 		cycle: Object,
 		index: Number
-	},
-	computed: {
-		days() {
-			return this.$store.getters.days
-		}
 	},
 	methods: {
 		daysInCycle(id) {
@@ -87,6 +82,7 @@ export default {
 .add-day {
 	display: flex;
 	align-items: center;
+	z-index: 1;
 
 	&__btn {
 		margin-left: 5px;

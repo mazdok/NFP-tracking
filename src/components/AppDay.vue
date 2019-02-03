@@ -2,7 +2,7 @@
   <div class="day" :class="[day.observation.mark]">
     <div class="day__header">
       <span class="day__number">{{dateIndex(day) || 1 }}</span>
-      <span class="day__date">{{day.date | moment("Do MM")}}</span>
+      <span class="day__date">{{day.date | moment("ddd DD.MM")}}</span>
     </div>
     <img v-if="isDayHasImage(day)" src="@/assets/img/baby_img.svg" alt="" class="day__img">
     <div>
@@ -77,7 +77,7 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 55px;
+  width: 52px;
   height: 135px;
   text-align: center;
   padding: 10px 10px 20px 10px;
@@ -126,7 +126,7 @@ export default {
   &__peak {
     position: absolute;
     font-size: 4.5rem;
-    top: 50%;
+    top: 45%;
     transform: translate(0%, -50%);
     opacity: .6;
   }

@@ -162,7 +162,23 @@
                         show-stops>
                     </el-slider>
                     
+                    <el-form-item label="Date">
+                        <el-date-picker
+                            v-model="day.date"
+                            type="date"
+                            placeholder="Pick a day"
+                            :picker-options="dateOptions">
+                        </el-date-picker>
+                    </el-form-item>
+
                     <el-input type="textarea" :rows="2" placeholder="You can leave here a comment" v-model="day.observation.comment"></el-input>
+
+                    <div class="danger-zone" v-if="edit">
+                        <el-button 
+                            type="danger" 
+                            circle icon="el-icon-delete" 
+                            @click="removeDay(day.id)"></el-button>
+                    </div>
                 </div>
             </el-collapse-transition>
         </el-row>
@@ -196,7 +212,12 @@ export default {
 	},
 	data() {
 		return {
-			showMore: false
+            showMore: false,
+            dateOptions: {
+                disabledDate(time) {
+                    return time.getTime() > Date.now();
+                }
+            }
 		}
     },
 	methods: {
@@ -204,7 +225,7 @@ export default {
 			const dayObs = this.day.observation;
 			const currentDay = {
 				id: null,
-				date: Date.now(),
+				date: this.day.date,
 				observation: {
 					mark: dayObs.mark,
 					menstrual: dayObs.menstrual,
@@ -218,7 +239,7 @@ export default {
                     comment: dayObs.comment,
                     sex: dayObs.sex
 				}
-			}
+            }
             this.$store.dispatch('addDay', currentDay)
         },
         editObservation() {
@@ -249,14 +270,34 @@ export default {
                 this.$message({
                     type: 'success',
                     message: 'The data has been successfully updated'
-                });
+                })
+                // edit
                 this.$store.dispatch('editDay', currentDay)
             }).catch(() => {
                 this.$message({
                     type: 'info',
                     message: 'Canceled'
-                });
-            });
+                })
+            })
+        },
+        removeDay(id) {
+             this.$confirm('Do you want to delete a day?', 'Warning', {
+                confirmButtonText: 'Delete',
+                cancelButtonText: 'Cancel',
+                type: 'warning'
+            }).then(() => {
+                this.$message({
+                    type: 'success',
+                    message: 'The data was deleted'
+                })
+                // delete
+                this.$store.dispatch('deleteDay', id)
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: 'Canceled'
+                })
+            })
         }
 	}
 }
@@ -273,7 +314,7 @@ export default {
 	justify-content: space-between;
 	align-items: center;
 	width: 70px;
-	height: 128px;
+	height: 140px;
 	text-align: center;
 	padding: 10px 10px 20px 10px;
 	border: 1px solid $lighter-border;
@@ -294,7 +335,8 @@ export default {
     @media screen and (min-width: 768px) {
         max-width: 700px;
         margin: 0 auto;
-        box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.1);
+        background-color: #fff;
+        box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.1);
         padding: 1.5rem 1rem 2rem;
         border-radius: 5px;
     }
@@ -337,5 +379,10 @@ export default {
 
 .el-select {
     width: 100%;
+}
+
+.danger-zone {
+    text-align: right;
+    padding-top: 1rem;
 }
 </style>

@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import AppCycle from '@/components/AppCycle.vue'
+import AppCycle from '@/views/Cycles/AppCycle.vue'
 import { mapGetters } from 'vuex'
 
 export default {

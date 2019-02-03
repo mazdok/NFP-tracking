@@ -8,8 +8,7 @@
     <h1 class="hidden-sm-and-down">Add Day</h1>
     <el-row type="flex" justify="center">
       <el-col :span="10">
-        <!-- DATE -->
-        <app-date></app-date>
+        <app-date :date="day.date"></app-date>
       </el-col>
     </el-row>
     <el-row type="flex" justify="center">
@@ -23,8 +22,8 @@
 
 <script>
 // @ is an alias to /src
-import DayForm from '@/components/DayForm.vue'
-import AppDate from '@/components/AppDate.vue'
+import DayForm from '@/views/Home/DayForm.vue'
+import AppDate from '@/views/Home/AppDate.vue'
 
 export default {
   name: 'home',
@@ -36,7 +35,7 @@ export default {
     return {
       day: {
         id: null,
-        date: null,
+        date: new Date(),
         observation: {
           mark: null,
           menstrual: null,
@@ -50,7 +49,7 @@ export default {
           comment: '',
           sex: false
         }
-      },
+      }
     }
   },
   computed: {

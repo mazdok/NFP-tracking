@@ -114,8 +114,13 @@ export default {
       margin-bottom: 1rem;
       border-radius: 1rem;
       background: $gray-gradient;
+      
       &.active {
         background: $green-gradient;
+      }
+
+      & div {
+        z-index: 1;
       }
     }
   }

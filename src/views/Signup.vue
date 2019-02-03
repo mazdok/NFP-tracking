@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import PageHeader from '@/components/PageHeader'
+import PageHeader from '@/components/layout/PageHeader'
 import { mapGetters } from 'vuex'
 
 export default {

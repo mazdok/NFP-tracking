@@ -15,6 +15,9 @@ export default {
     },
     'EDIT_DAY'(state, payload) {
       state.days = payload;
+    },
+    'DELETE_DAY'(state, payload) {
+      state.days = payload;
     }
   },
   actions: {
@@ -26,7 +29,7 @@ export default {
           const days = []
           querySnapshot.forEach(doc => {
             const data = doc.data();
-            const book = {
+            const day = {
               'id': doc.id,
               'creatorId': userId,
               'cycle_id': data.cycle_id,
@@ -45,9 +48,13 @@ export default {
                 'sex': data.observation.sex
               }
             }
-            days.push(book)
+            days.push(day)
           })
-          commit('SET_LOADED_DAYS', days);
+          //sort days by date
+          const sortedDays = days.sort(function(a,b){
+            return a.date - b.date;
+          });
+          commit('SET_LOADED_DAYS', sortedDays);
         })
         .catch(error => {
           commit('SET_ERROR', error);
@@ -58,9 +65,9 @@ export default {
 
       //create a cycle and a day IF there is NO CYCLES
       if (!getters.cycles.length) {
-        return new Promise((res) => {
+        return new Promise((resolve) => {
           dispatch('addCycle')
-          res();
+          resolve();
         })
         .then(() => {
           let cycleId = null;
@@ -95,56 +102,12 @@ export default {
         scrollToTop();
         return;
       }
-      
-      //check is day already in cycle
-      const daysInCycle = getters.days.filter(day => day.cycle_id == currentCycle.id);
-      
-      if(daysInCycle.length > 0) {
-        let prevDayDate = new Date(daysInCycle[daysInCycle.length -1].date).getDate();
-        let now = new Date().getDate();
-
-        var missedDays = now - prevDayDate;
-        const DAY_IN_MS = 86400000;
-        
-        if(prevDayDate === now) {
-          const error = new Error('You can only create one card per day in a cycle');
-          commit('SET_ERROR', error);
-          scrollToTop();
-          return
-        }
-
-        if(missedDays > 1) {
-          for(let i = 0; i < missedDays - 1; i++) {
-            const daysInCycle = getters.days.filter(day => day.cycle_id == currentCycle.id);
-            let prevDay = new Date(daysInCycle[daysInCycle.length -1].date).getTime();
-            
-            //add empty day for every missed day
-            let missedDay = {
-              id: null,
-              creatorId: getters.getUserId,
-              cycle_id: currentCycle.id,
-              date:  new Date(prevDay += DAY_IN_MS),
-              observation: {}
-            }
-            
-            const dayRef = Vue.$db.collection('days').doc(); 
-            dayRef.set({...missedDay, id: dayRef.id})
-            .then(() => {
-              missedDay.id = dayRef.id;
-              commit('ADD_DAY', missedDay);
-            })
-            .catch((error) => {
-              commit('SET_ERROR', error);
-            })
-          }
-        }
-      }
 
       const day = {
         id: null,
         creatorId: getters.getUserId,
         cycle_id: currentCycle.id,
-        date: new Date(),
+        date: payload.date,
         observation: {
           mark: payload.observation.mark,
           menstrual: payload.observation.menstrual,
@@ -169,7 +132,6 @@ export default {
       .catch((error) => {
         commit('SET_ERROR', error);
       })
-      //redirect
       router.push('/cycles')
     },
     editDay({commit,state}, payload) {
@@ -178,13 +140,26 @@ export default {
       const currentDayIndex = state.days.findIndex(day => day.id == payload.id);
       const updatedDays = [...state.days.slice(0, currentDayIndex), payload, ...state.days.slice(currentDayIndex + 1, state.days.length)];
       commit('EDIT_DAY', updatedDays);
+    },
+    deleteDay({commit, getters}, payload) {
+      const updatedDays = getters.days.filter((day) => day.id != payload)
+
+      Vue.$db.collection('days').doc(payload).delete()
+      .then(() => {
+        commit('DELETE_DAY', updatedDays)
+      })
+      .then(() => {
+        router.push('/cycles')
+      })
+      .catch(error => commit('SET_ERROR', error))
     }
   },
   getters: {
     days(state) {
-      return state.days.sort(function(a,b){
-        return new Date(a.date) - new Date(b.date);
-      });
+      return state.days
+      // return state.days.sort(function(a,b){
+      //   return a.date - b.date;
+      // });
     },
     daysInCycle: state => id => {
       return state.days.filter(day => day.cycle_id === id);

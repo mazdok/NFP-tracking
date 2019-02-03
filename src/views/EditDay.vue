@@ -3,7 +3,7 @@
     <el-row type="flex" justify="center">
       <el-col :span="10">
         <!-- DATE -->
-        <app-date></app-date>
+        <app-date :date="day.date"></app-date>
       </el-col>
     </el-row>
     <el-row type="flex" justify="center">
@@ -15,8 +15,8 @@
 
 <script>
 // @ is an alias to /src
-import DayForm from '@/components/DayForm.vue';
-import AppDate from '@/components/AppDate.vue';
+import DayForm from '@/views/Home/DayForm.vue';
+import AppDate from '@/views/Home/AppDate.vue';
 
 export default {
   name: 'edit-day',

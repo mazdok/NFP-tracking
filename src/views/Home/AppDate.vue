@@ -1,17 +1,15 @@
 <template>
   <div class="date">
     <!-- <i class="el-icon-arrow-left"></i> -->
-    <span>{{today | moment("ddd MM.YYYY")}}</span>
+    <span>{{date | moment("ddd DD.MM.YYYY")}}</span>
     <!-- <i class="el-icon-arrow-right"></i> -->
   </div>
 </template>
 
 <script>
 export default {
-  computed: {
-    today() {
-      return new Date()
-    }
+  props: {
+    date: Date
   }
 }
 </script>

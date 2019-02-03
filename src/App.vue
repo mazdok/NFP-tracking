@@ -16,8 +16,8 @@
 
 <script>
 
-import AppHeader from '@/components/AppHeader'
-import AppSidebar from '@/components/AppSidebar'
+import AppHeader from '@/components/layout/AppHeader'
+import AppSidebar from '@/components/layout/AppSidebar'
 import { mapState } from 'vuex'
 
 export default {
@@ -66,5 +66,12 @@ export default {
     bottom: 0;
     background-color: rgba(0, 0, 0, .7);
     transition: all .5s ease-in-out;
+  }
+
+  @media screen and (min-width: 768px) {
+    #app {
+      background: #d3d3d324;
+      min-height: 100vh;
+    }
   }
 </style>
