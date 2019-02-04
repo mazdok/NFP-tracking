@@ -1,13 +1,11 @@
-![Logo of the project](./src/assets/img/logo.png)
+![Logo of the project](./src/assets/img/logo.svg)
 
 # NFP. Natural family planning &middot; [![Build Status](https://img.shields.io/travis/npm/npm/latest.svg?style=flat-square)](https://travis-ci.org/npm/npm) [![npm](https://img.shields.io/npm/v/npm.svg?style=flat-square)](https://www.npmjs.com/package/npm) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/your/your-project/blob/master/LICENSE)
 
-A brief description of your project, what it is used for.
+This application is intended to facilitate the process of monitoring the biological markers for, so that the map for records is always at your fingertips. Suitable for records for those who are using Creighton Model FertilityCare System (Creighton Model, FertilityCare, CrMS).
+Optimized for modile devices, but you can use it on your PC as well. 
 
 ## Installing / Getting started
-
-A quick introduction of the minimal setup you need to get a hello world up &
-running.
 
 ```shell
 npm run serve 
@@ -25,7 +23,6 @@ Vue.js: 2.5.22, vue-router: 3.0.1, vuex: 3.0.1, element-ui: 2.4.11
 
 <!-- ### Prerequisites -->
 <!-- What is needed to set up the dev environment. For instance, global dependencies or any other tools. include download links. -->
-
 
 <!-- ### Setting up Dev
 
@@ -98,8 +95,3 @@ If the api is external, link to api documentation. If not describe your api incl
 For data storage using Google Firestore. 
 <!-- Explaining what database (and version) has been used. Provide download links.
 Documents your database design and schemas, relations etc...  -->
-
-## Licensing
-
-#[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)]
-<!-- State what the license is and how to find the text version of the license. -->
