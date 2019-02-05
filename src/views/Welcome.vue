@@ -35,11 +35,15 @@
   .welcome {
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh - 40px);
+    min-height: calc(100vh - 80px);
     &__footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
       text-align: center;
       padding: 1rem;
-      margin: 0 -20px -20px -20px;
+      // margin: 0 -20px -20px -20px;
       background-color: $light-border;
     }
 

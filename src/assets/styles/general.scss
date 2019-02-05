@@ -1,27 +1,60 @@
+@import '@/assets/styles/variables.scss';
+
 //COLOURS CLASSES
 .red {
-    background-color: $danger;
+  background-color: $danger;
 }
 
 .green {
-    background-color: $success;
+  background-color: $success;
 }
 
 .lightgreen {
-    background-color: $lightgray;
+  background-color: $lightgray;
 }
 
 .white {
-    background-color: $extra-light-border;
+  background-color: $extra-light-border;
 }
 
 .yellow {
-    background-color: $warning;
+  background-color: $warning;
 }
 
 //ICONS
 .el-icon {
-    &--vertical {
-        transform: rotate(90deg);
+  &--vertical {
+    transform: rotate(90deg);
+  }
+}
+
+// AUTH PAGES
+.auth-form {
+  max-width: 400px;
+  margin: 1.5rem auto 1.5rem;
+
+  &__heading {
+    display: none;
+  }
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+@media screen and (min-width: 768px) {
+  // AUTH PAGES
+  .auth-form {
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, .1);
+  
+    &__heading {
+      display: block;
+      margin-top: 0;
+      color: $regular-text;
     }
+  }
 }

@@ -3,7 +3,7 @@
       <el-header v-if="isUserAuthenticated">
         <app-header></app-header>
       </el-header>
-      <app-sidebar></app-sidebar>
+      <app-sidebar v-if="isUserAuthenticated"></app-sidebar>
       
       <el-main>
         <router-view/>
@@ -66,6 +66,7 @@ export default {
     bottom: 0;
     background-color: rgba(0, 0, 0, .7);
     transition: all .5s ease-in-out;
+    z-index: 1;
   }
 
   @media screen and (min-width: 768px) {

@@ -8,6 +8,10 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
 // overwrite styles
 .el-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: center;
     padding: 0;
@@ -21,6 +25,7 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
     max-width: 1170px;
     width: 100%;
     margin: 0 auto;
+    padding: 60px 20px 20px 20px;
 }
 
 .el-menu {
@@ -28,12 +33,13 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 }
 
 .el-menu.el-menu--horizontal {
-    position: fixed;
+    // position: fixed;
     max-width: 1170px;
     width: 100%;
-    top: -1px;
+    // top: -1px;
     display: flex;
     justify-content: center;
+    border-bottom: none;
     // box-shadow: 1px 1px 6px rgba(0,0,0,0.1);
 }
 

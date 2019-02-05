@@ -10,7 +10,8 @@
         show-icon
         type="error">
       </el-alert>
-      <el-form ref="form">
+      <el-form ref="form" class="auth-form">
+        <h3 class="auth-form__heading">Login</h3>
         <el-form-item label="Email">
           <el-input v-model="email"></el-input>
         </el-form-item>
@@ -69,8 +70,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .button-wrapper {
-    display: flex;
-    justify-content: center;
-  }
+@import '@/assets/styles/variables.scss';
+@import '@/assets/styles/general.scss';
+
 </style>
