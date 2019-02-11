@@ -202,6 +202,7 @@
 
 <script>
 import AppDay from '@/components/AppDay.vue'
+import { throws } from 'assert';
 export default {
     components: {
         AppDay
@@ -240,7 +241,34 @@ export default {
                     sex: dayObs.sex
 				}
             }
-            this.$store.dispatch('addDay', currentDay)
+            // check for duplicated cards
+            const currentCycle = this.$store.getters.currentCycle
+            const daysInCycle = this.$store.getters.daysInCycle(currentCycle.id)
+            const today = `${this.day.date.getDate()}-${this.day.date.getMonth()}`
+            const dates = daysInCycle.map((day) => day.date.getDate() + '-' + day.date.getMonth())
+
+            if(dates.some((day) => day === today)) {
+                this.$confirm("You've already created a card for this day. Create a new card anyway?", 'Info', {
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'Cancel',
+                    type: 'info'
+                }).then(() => {
+                    this.$message({
+                        type: 'success',
+                        duration: 1000,
+                        message: 'The cart was successfully created'
+                    })
+                    this.$store.dispatch('addDay', currentDay)
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        duration: 1000,
+                        message: 'Canceled'
+                    })
+                })
+            } else {
+                this.$store.dispatch('addDay', currentDay)
+            }
         },
         editObservation() {
             const dayObs = this.day.observation
@@ -276,6 +304,7 @@ export default {
             }).catch(() => {
                 this.$message({
                     type: 'info',
+                    duration: 1000,
                     message: 'Canceled'
                 })
             })
@@ -288,13 +317,15 @@ export default {
             }).then(() => {
                 this.$message({
                     type: 'success',
-                    message: 'The data was deleted'
+                    duration: 1000,
+                    message: 'The day was deleted'
                 })
                 // delete
                 this.$store.dispatch('deleteDay', id)
             }).catch(() => {
                 this.$message({
                     type: 'info',
+                    duration: 1000,
                     message: 'Canceled'
                 })
             })
@@ -329,7 +360,7 @@ export default {
 	&__mark {
 		@extend .current-mark;
 		width: 40px;
-		height: 40px;
+        height: 40px;
     }
     
     @media screen and (min-width: 768px) {

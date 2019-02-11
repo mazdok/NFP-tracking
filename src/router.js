@@ -27,7 +27,7 @@ const router = new Router({
     {
       path: '/cycles',
       name: 'cycles',
-      component: () => import(/* webpackChunkName: "about" */ './views/Cycles'),
+      component: () => import(/* webpackChunkName: "cycles" */ './views/Cycles'),
       meta: {
         requireAuth: true
       }

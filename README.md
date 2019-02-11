@@ -2,54 +2,28 @@
 
 # NFP. Natural family planning &middot; [![Build Status](https://img.shields.io/travis/npm/npm/latest.svg?style=flat-square)](https://travis-ci.org/npm/npm) [![npm](https://img.shields.io/npm/v/npm.svg?style=flat-square)](https://www.npmjs.com/package/npm) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/your/your-project/blob/master/LICENSE)
 
-This application is intended to facilitate the process of monitoring the biological markers for, so that the map for records is always at your fingertips. Suitable for records for those who are using Creighton Model FertilityCare System (Creighton Model, FertilityCare, CrMS).
-Optimized for modile devices, but you can use it on your PC as well. 
+This application is intended to make easier the process of monitoring the biological markers, so that the map for records is always at your fingertips. Suitable for records for those who are using Creighton Model FertilityCare System (Creighton Model, FertilityCare, CrMS).
+Optimized for modile devices, and can be added to the screen as a regular app. 
 
 ## Installing / Getting started
 
 ```shell
+git clone https://github.com/mazdok/NFP-tracking.git
+cd NFP-tracking
+npm install
 npm run serve 
 ```
-run development server
+build project
 
 ```shell
 npm run build
 ```
-run build command and create a 'dist' folder
+
 ## Developing
 
 ### Built With
-Vue.js: 2.5.22, vue-router: 3.0.1, vuex: 3.0.1, element-ui: 2.4.11
+Vue.js, vue-router, vuex, element-ui, firebase
 
-<!-- ### Prerequisites -->
-<!-- What is needed to set up the dev environment. For instance, global dependencies or any other tools. include download links. -->
-
-<!-- ### Setting up Dev
-
-Here's a brief intro about what a developer must do in order to start developing
-the project further:
-
-```shell
-git clone https://github.com/your/your-project.git
-cd your-project/
-packagemanager install
-```
-
-And state what happens step-by-step. If there is any virtual environment, local server or database feeder needed, explain here. -->
-
-<!-- ### Building
-
-If your project needs some additional steps for the developer to build the
-project after some code changes, state them here. for example:
-
-```shell
-./configure
-make
-make install
-```
-
-Here again you should state what actually happens when the code above gets
-executed. -->
 
 <!-- ### Deploying / Publishing
 give instructions on how to build and release a new version
@@ -92,6 +66,4 @@ If the api is external, link to api documentation. If not describe your api incl
 
 ## Database
 
-For data storage using Google Firestore. 
-<!-- Explaining what database (and version) has been used. Provide download links.
-Documents your database design and schemas, relations etc...  -->
+Data storage - Google Firestore. 

@@ -52,10 +52,12 @@ export default {
   body {
     margin: 0;
     font-family: 'Open Sans', sans-serif;
+    // background-color: #e0e0e036;
   }
 
   #app {
     flex-direction: column;
+    background: #d3d3d324;
   }
 
   .overlay {
@@ -71,7 +73,6 @@ export default {
 
   @media screen and (min-width: 768px) {
     #app {
-      background: #d3d3d324;
       min-height: 100vh;
     }
   }

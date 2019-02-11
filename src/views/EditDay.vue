@@ -44,8 +44,6 @@ export default {
           sex: false
         }
       }
-      // prevDayId: null,
-      // nextDayId: null
     }
   },
   computed: {
@@ -58,19 +56,6 @@ export default {
       const dayId = this.$route.params.id
       const currentDay = this.days.find(day => day.id == dayId)
       this.day = currentDay
-
-      // test
-      // navidation links
-      // const daysIds = this.days.map((day) => day.id)
-      // const currentDayIndex = daysIds.findIndex((curr, index) => {
-      //   if(curr == dayId) {
-      //     return index
-      //   }
-      // })
-      // this.prevDayId = daysIds[currentDayIndex - 1]
-      // this.nextDayId = daysIds[currentDayIndex + 1]
-      // console.log(this.prevDayId)
-      // console.log(this.nextDayId)
     }
   }
 }

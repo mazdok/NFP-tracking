@@ -157,9 +157,6 @@ export default {
   getters: {
     days(state) {
       return state.days
-      // return state.days.sort(function(a,b){
-      //   return a.date - b.date;
-      // });
     },
     daysInCycle: state => id => {
       return state.days.filter(day => day.cycle_id === id);
