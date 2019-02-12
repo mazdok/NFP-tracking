@@ -105,7 +105,7 @@ export default {
   }
 
   &__date {
-    font-size: .75rem;
+    font-size: .65rem;
     font-style: italic;
   }
 
@@ -159,7 +159,7 @@ export default {
   padding: 10px;
 
   .day__date {
-    font-size: .75rem;
+    font-size: .65rem;
     font-style: italic;
   }
 

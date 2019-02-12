@@ -57,7 +57,8 @@ export default {
 
   #app {
     flex-direction: column;
-    background: #d3d3d324;
+    background: $main-bg;
+    min-height: 100vh;
   }
 
   .overlay {
@@ -69,11 +70,5 @@ export default {
     background-color: rgba(0, 0, 0, .7);
     transition: all .5s ease-in-out;
     z-index: 1;
-  }
-
-  @media screen and (min-width: 768px) {
-    #app {
-      min-height: 100vh;
-    }
   }
 </style>

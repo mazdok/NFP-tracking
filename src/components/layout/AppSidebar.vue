@@ -68,16 +68,16 @@ export default {
       ],
       infoLinks: [
         {
-          name: 'Color',
-          path: '/info#color'
+          name: 'Consistance / color / sensation',
+          path: '/info#color-consistence-sensation'
         },
         {
-          name: 'Sensation',
-          path: '/info#sensation'
+          name: 'Special notes',
+          path: '/info#special-notes'
         },
         {
-          name: 'Type of mucus',
-          path: '/info#mucus'
+          name: 'Marks',
+          path: '/info#marks'
         }
       ]
     }
