@@ -1,5 +1,5 @@
 <template>
-  <div class="day" :class="[day.observation.mark]">
+  <div class="day" :class="markClass">
     <div class="day__header">
       <span class="day__number">{{dateIndex(day) || 1 }}</span>
       <span class="day__date">{{day.date | moment("ddd DD.MM")}}</span>
@@ -43,10 +43,16 @@ export default {
     ...mapGetters({
       days: 'days',
       currentCycle: 'currentCycle'
-    })
+    }),
+    markClass() {
+      // set red class for menstrual days
+      return this.day.observation.menstrual ? 'red' : this.day.observation.mark
+    }
   },
   methods: {
     isDayHasImage(day) {
+      if(day.observation.menstrual) { return }
+
       return day.observation.mark === 'white' || day.observation.mark === 'lightgreen'
     },
     dateIndex(day) {

@@ -3,7 +3,8 @@
     <h1 class="main-heading">
       Information
       <i class="el-icon-question"></i></h1>
-    <p class="info__section">1)	Please note such biomarkers every day (mucus features):</p>
+    <p class="info__section">
+      1)	Please note such biomarkers every day (mucus features):</p>
     <ol>
       <li>Consistence</li>
       <li>Color</li>
@@ -11,7 +12,7 @@
       <li>Frequency</li>
     </ol>
 
-    <p id="color-consistence-sensation" class="info__heading">Consistence</p>
+    <p id="characteristics" class="info__heading">Consistence</p>
     <ul>
       <li><span class="bold">6</span> - Sticky mucus stretches to 0,5 cm;</li>
       <li><span class="bold">8</span> - tacky mucus stretches from 1 to 2 cm;</li>
@@ -55,9 +56,9 @@
     
     <p><strong>PEAK DAY</strong> is the last day when mucus is clear and/or very stretchy and/or lubricative.</p>
     <div class="sticker-wrapper">
-      <div class="sticker sticker--peak sticker--peak-first"></div>
-      <div class="sticker sticker--peak sticker--peak-second"></div>
-      <div class="sticker sticker--peak sticker--peak-last"></div>
+      <div class="sticker sticker--lightgreen sticker--peak sticker--peak-first"></div>
+      <div class="sticker sticker--lightgreen sticker--peak sticker--peak-second"></div>
+      <div class="sticker sticker--lightgreen sticker--peak sticker--peak-last"></div>
     </div>
     <p><strong>1, 2, 3</strong> is marked in 3 stickers in the next days after peak day</p>
     
@@ -114,7 +115,7 @@ export default {
   .info {
     &__section {
       font-weight: bold;
-      font-size: 1.15rem;
+      font-size: 1.05rem;
     }
 
     &__heading {

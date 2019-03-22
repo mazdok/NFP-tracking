@@ -68,8 +68,8 @@ export default {
       ],
       infoLinks: [
         {
-          name: 'Consistance / color / sensation',
-          path: '/info#color-consistence-sensation'
+          name: 'Сharacteristics',
+          path: '/info#characteristics'
         },
         {
           name: 'Special notes',

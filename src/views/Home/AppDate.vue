@@ -23,8 +23,8 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 1rem;
-    margin-bottom: .5rem;
+    margin-top: 10px;
+    margin-bottom: 0;
     
     i {
       color: lightgray;

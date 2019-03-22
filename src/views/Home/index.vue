@@ -21,7 +21,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import DayForm from '@/views/Home/DayForm.vue'
 import AppDate from '@/views/Home/AppDate.vue'
 
@@ -59,7 +58,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

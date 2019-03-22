@@ -5,8 +5,11 @@
             <app-day class="current-mark" :day="day"></app-day>
             <el-radio-group v-model="day.observation.mark" class="marks__wrapper">
                 <div>
-                    <el-radio :label="'red'" class="day-form__radio-mark">
+                    <!-- <el-radio :label="'red'" class="day-form__radio-mark">
                         <div class="day-form__mark red"></div>
+                    </el-radio> -->
+                    <el-radio :label="'yellow'" class="day-form__radio-mark">
+                        <div class="day-form__mark yellow"></div>
                     </el-radio>
                     <el-radio :label="'green'" class="day-form__radio-mark">
                         <div class="day-form__mark green"></div>
@@ -65,9 +68,9 @@
                 <el-option label="N/A" value="">
                     <strong>N/A</strong>
                 </el-option>
-                <el-option value="B">
+                <!-- <el-option value="B">
                     <strong>B</strong> - <small> brown or black spotting</small>
-                </el-option>
+                </el-option> -->
                 <el-option value="C">
                     <strong>C</strong> - <small> cloudy white</small>
                 </el-option>
@@ -202,7 +205,7 @@
 
 <script>
 import AppDay from '@/components/AppDay.vue'
-import { throws } from 'assert';
+
 export default {
     components: {
         AppDay
@@ -255,14 +258,14 @@ export default {
                 }).then(() => {
                     this.$message({
                         type: 'success',
-                        duration: 1000,
+                        duration: 500,
                         message: 'The cart was successfully created'
                     })
                     this.$store.dispatch('addDay', currentDay)
                 }).catch(() => {
                     this.$message({
                         type: 'info',
-                        duration: 1000,
+                        duration: 500,
                         message: 'Canceled'
                     })
                 })
@@ -301,6 +304,7 @@ export default {
                 })
                 // edit
                 this.$store.dispatch('editDay', currentDay)
+                this.$router.push('/cycles')
             }).catch(() => {
                 this.$message({
                     type: 'info',
@@ -378,7 +382,7 @@ export default {
     align-items: center;
     justify-content: space-around;
     max-width: 280px;
-    margin: 0 auto 1rem;
+    margin: 0 auto 10px;
 
     &__wrapper {
 		display: flex;

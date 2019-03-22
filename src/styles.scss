@@ -60,4 +60,8 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
         width: unset;
         max-width: 420px;
     }
+
+    .el-form-item {
+        margin-bottom: 12px;
+    }
 }
