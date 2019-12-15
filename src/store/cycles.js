@@ -1,5 +1,4 @@
 import Vue from "vue";
-import sortArrayWithUndefined from '@/helpers/sortArray';
 
 export default {
   state: {
@@ -40,6 +39,7 @@ export default {
           const cycles = [];
           querySnapshot.forEach(doc => {
             const data = doc.data();
+            console.log(data.createdAt)
             const cycle = {
               id: doc.id,
               createdAt: data.createdAt,
@@ -146,8 +146,7 @@ export default {
   },
   getters: {
     cycles(state) {
-      // sort cycles at DESC order
-      return state.cycles.sort(sortArrayWithUndefined('DESC'));
+      return state.cycles.sort((a, b) => b.createdAt - a.createdAt);
     },
     currentCycle(state) {
       return state.cycles.find(cycle => cycle.current);

@@ -22,7 +22,7 @@
         <el-dropdown-item>
           <el-button
             @click="resizeCycle(cycle.id)"
-            class="w-100"
+            class="menu-block-btn"
             size="mini"
             type="text"
             :icon="cycle.squeezed? 'el-icon-plus' : 'el-icon-minus'"
@@ -135,7 +135,9 @@ export default {
   }
 }
 
-.w-100 {
+.menu-block-btn {
   width: 100%;
+  display: flex;
+  justify-content: flex-start;
 }
 </style>
