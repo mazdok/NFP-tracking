@@ -39,7 +39,7 @@ export default {
           const cycles = [];
           querySnapshot.forEach(doc => {
             const data = doc.data();
-            console.log(data.createdAt)
+            // console.log(data.createdAt)
             const cycle = {
               id: doc.id,
               createdAt: data.createdAt,

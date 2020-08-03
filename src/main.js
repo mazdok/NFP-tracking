@@ -37,7 +37,7 @@ library.add([faBars, faSignOutAlt, faHeart])
 const firebaseApp = firebase.initializeApp(firebaseConfig)
 const db = firebaseApp.firestore()
 db.settings({
-  timestampsInSnapshots: true
+  // timestampsInSnapshots: true
 })
 Vue.$db = db
 Vue.config.productionTip = false
