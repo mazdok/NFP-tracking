@@ -42,7 +42,7 @@
             type="text"
             icon="el-icon-delete"
             @click="deleteCycle(cycle.id)"
-          >Delete row</el-button>
+          >Delete cycle</el-button>
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
@@ -111,8 +111,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/styles/variables.scss";
-@import "@/assets/styles/general.scss";
+@import "@/assets/styles/_variables.scss";
+
 
 .cycle {
   &__info {

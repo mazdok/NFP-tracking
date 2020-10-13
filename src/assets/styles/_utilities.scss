@@ -1,0 +1,36 @@
+@import './variables.scss';
+
+// -----------------------------------------------------------------------------------------------------
+// @ Spacing helpers
+// -----------------------------------------------------------------------------------------------------
+
+// basic classes for margin (from 1 to 5)
+@each $size,
+$length in $spacers {
+
+  @each $prop,
+  $abbrev in (margin: m) {
+    @each $side in $sides {
+      .#{$abbrev}#{str-slice($side, 0, 1)}-#{$size} {
+        #{$prop}-#{$side}: #{$length} !important;
+      }
+    }
+
+    .#{$abbrev}x-#{$size} {
+      #{$prop}-right: $length !important;
+      #{$prop}-left: $length !important;
+    }
+
+    .#{$abbrev}y-#{$size} {
+      #{$prop}-top: $length !important;
+      #{$prop}-bottom: $length !important;
+    }
+
+    .#{$abbrev}-#{$size} {
+      #{$prop}-top: $length !important;
+      #{$prop}-bottom: $length !important;
+      #{$prop}-right: $length !important;
+      #{$prop}-left: $length !important;
+    }
+  }
+}

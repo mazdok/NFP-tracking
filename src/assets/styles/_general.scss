@@ -1,6 +1,7 @@
-@import '@/assets/styles/variables.scss';
+@import './variables';
+@import './utilities';
 
-//COLOURS CLASSES
+// Colors
 .red {
   background-color: $danger;
 }
@@ -21,14 +22,14 @@
   background-color: #f3e462;
 }
 
-//ICONS
+// Icons
 .el-icon {
   &--vertical {
     transform: rotate(90deg);
   }
 }
 
-// AUTH PAGES
+// Auth pages
 .auth-form {
   max-width: 400px;
   margin: 1.5rem auto 1.5rem;
@@ -44,7 +45,7 @@
 }
 
 @media screen and (min-width: 768px) {
-  // AUTH PAGES
+  // Auth pages
   .auth-form {
     padding: 1rem;
     background-color: #fff;

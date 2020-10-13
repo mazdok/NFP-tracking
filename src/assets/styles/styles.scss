@@ -1,3 +1,5 @@
+@import './general.scss';
+
 /* theme color */
 $--color-primary: teal;
 
@@ -33,14 +35,11 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 }
 
 .el-menu.el-menu--horizontal {
-    // position: fixed;
     max-width: 1170px;
     width: 100%;
-    // top: -1px;
     display: flex;
     justify-content: center;
     border-bottom: none;
-    // box-shadow: 1px 1px 6px rgba(0,0,0,0.1);
 }
 
 .el-menu::before, .el-menu::after {

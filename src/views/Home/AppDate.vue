@@ -16,8 +16,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/styles/variables.scss';
-  @import '@/assets/styles/general.scss';
+  @import '@/assets/styles/_variables.scss';
 
   .date {
     display: flex;

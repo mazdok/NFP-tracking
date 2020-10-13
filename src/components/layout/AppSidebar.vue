@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="swipe-block" v-hammer:swipe.right="onSwipeRight"></div>
+    <!-- <div class="swipe-block" v-hammer:swipe.right="onSwipeRight"></div> -->
     <el-menu
       v-show="isUserAuthenticated"
       class="sidebar-menu" 
@@ -119,7 +119,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '@/assets/styles/variables.scss';
+  @import '@/assets/styles/_variables.scss';
 
   .sidebar-menu {
     position: fixed;

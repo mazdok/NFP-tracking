@@ -8,7 +8,7 @@ import i18n from 'vue-i18n';
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/display.css';
 import locale from 'element-ui/lib/locale/lang/en'
-import './styles.scss'
+import './assets/styles/styles.scss'
 import VueScrollTo from 'vue-scrollto'
 import scrollToConfig from './config/scrollToConfig'
 import { VueHammer } from 'vue2-hammer'

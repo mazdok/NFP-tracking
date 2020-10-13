@@ -1,3 +1,4 @@
+// Colors
 $primary-text: #303133;
 $regular-text: #606266;
 $secondary-text: #909399;
@@ -17,7 +18,21 @@ $main-bg: #d3d3d324;
 
 $white: #fff;
 
-//GRADIENTS
+// Gradients
 $gray-gradient: linear-gradient(to right, #fcfcfc 0%, #d3d3d352 100%);
 $green-gradient: linear-gradient(to right, #fcfcfc 0%, #67c23abd 100%);
 $teal-gradient: linear-gradient(135deg, rgba(0,128,128,1) 0%, rgba(96,163,163,1) 100%);
+
+// Spacing variables
+$spacer: 1rem !default;
+$spacers: () !default;
+
+$spacers: map-merge((0: 0,
+    1: ($spacer * .25),
+    2: ($spacer * .5),
+    3: $spacer,
+    4: ($spacer * 1.5),
+    5: ($spacer * 3)),
+  $spacers);
+
+$sides: (top, bottom, left, right);
