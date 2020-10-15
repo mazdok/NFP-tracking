@@ -3,10 +3,11 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 // Localization
-import i18n from 'vue-i18n';
+import i18n from 'vue-i18n'
 // ElementUI & UI related
+import '../src/assets/styles/theme/index.css'
 import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/display.css';
+
 import locale from 'element-ui/lib/locale/lang/en'
 import './assets/styles/styles.scss'
 import VueScrollTo from 'vue-scrollto'

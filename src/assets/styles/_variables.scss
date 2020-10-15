@@ -1,38 +1,88 @@
 // Colors
-$primary-text: #303133;
-$regular-text: #606266;
-$secondary-text: #909399;
-$placeholder-text: #C0C4CC;
-$base-border: #DCDFE6;
-$light-border: #E4E7ED;
-$lighter-border: #EBEEF5;
-$extra-light-border: #F2F6FC;
-$light-teal: #a3e1db;
 
-$success: #67C23A;
-$danger: #F56C6C;
-$warning: #E6A23C;
-$lightgray: lighten($color: $success, $amount: 25);
-$main-bg: #d3d3d324;
+// grays
+$gray-100: #f7fafc;
+$gray-200: #edf2f7;
+$gray-300: #e2e8f0;
+$gray-400: #cbd5e0;
+$gray-500: #a0aec0;
+$gray-600: #718096;
+$gray-700: #4a5568;
+$gray-800: #2d3748;
+$gray-900: #1a202c;
 
+// teal
+// $teal-100: #e6fffa;
+$teal-200: #b2f5ea;
+// $teal-300: #81e6d9;
+// $teal-400: #4fd1c5;
+$teal-500: #38b2ac;
+$teal-600: #319795;
+$teal-700: #2c7a7b;
+// $teal-800: #285e61;
+// $teal-900: #234e52;
 
-$white: #fff;
+// green
+$green-200: #c6f6d5;
+// $green-300: #9ae6b4;
+$green-400: #68d391;
+// $green-500: #48bb78;
+
+// yellow
+// $yellow-100: #fffff0;
+// $yellow-200: #fefcbf;
+// $yellow-300: #faf089;
+// $yellow-400: #f6e05e;
+// $yellow-500: #ecc94b;
+$yellow-600: #d69e2e;
+// $yellow-700: #b7791f;
+// $yellow-800: #975a16;
+// $yellow-900: #744210;
+
+// red
+// $red-100: #fff5f5;
+// $red-200: #fed7d7;
+// $red-300: #feb2b2;
+// $red-400: #fc8181;
+$red-500: #f56565;
+// $red-600: #e53e3e;
+// $red-700: #c53030;
+// $red-800: #9b2c2c;
+// $red-900: #742a2a;
+
+$success: $green-400;
+$danger: $red-500;
+$warning: $yellow-600;
+// $info: $gray-500;
+$main-bg: $gray-100;
 
 // Gradients
-$gray-gradient: linear-gradient(to right, #fcfcfc 0%, #d3d3d352 100%);
-$green-gradient: linear-gradient(to right, #fcfcfc 0%, #67c23abd 100%);
-$teal-gradient: linear-gradient(135deg, rgba(0,128,128,1) 0%, rgba(96,163,163,1) 100%);
+$gray-gradient: linear-gradient(to right, $gray-200 0%, $gray-400 100%);
+$green-gradient: linear-gradient(to right, $green-200 0%, $green-400 100%);
+$teal-gradient: linear-gradient(135deg, $teal-700 0%, $teal-500 100%);
 
 // Spacing variables
 $spacer: 1rem !default;
 $spacers: () !default;
 
-$spacers: map-merge((0: 0,
-    1: ($spacer * .25),
-    2: ($spacer * .5),
+$spacers: map-merge(
+  (
+    0: 0,
+    1: (
+      $spacer * 0.25,
+    ),
+    2: (
+      $spacer * 0.5,
+    ),
     3: $spacer,
-    4: ($spacer * 1.5),
-    5: ($spacer * 3)),
-  $spacers);
+    4: (
+      $spacer * 1.5,
+    ),
+    5: (
+      $spacer * 3,
+    ),
+  ),
+  $spacers
+);
 
 $sides: (top, bottom, left, right);

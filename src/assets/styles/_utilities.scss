@@ -1,36 +1,61 @@
-@import './variables.scss';
+@import "./variables.scss";
 
 // -----------------------------------------------------------------------------------------------------
 // @ Spacing helpers
 // -----------------------------------------------------------------------------------------------------
-
-// basic classes for margin (from 1 to 5)
-@each $size,
-$length in $spacers {
-
-  @each $prop,
-  $abbrev in (margin: m) {
+@each $size, $length in $spacers {
+  @each $prop, $abbrev in (margin: m) {
     @each $side in $sides {
       .#{$abbrev}#{str-slice($side, 0, 1)}-#{$size} {
-        #{$prop}-#{$side}: #{$length} !important;
+        #{$prop}-#{$side}: #{$length};
       }
     }
 
     .#{$abbrev}x-#{$size} {
-      #{$prop}-right: $length !important;
-      #{$prop}-left: $length !important;
+      #{$prop}-right: $length;
+      #{$prop}-left: $length;
     }
 
     .#{$abbrev}y-#{$size} {
-      #{$prop}-top: $length !important;
-      #{$prop}-bottom: $length !important;
+      #{$prop}-top: $length;
+      #{$prop}-bottom: $length;
     }
 
     .#{$abbrev}-#{$size} {
-      #{$prop}-top: $length !important;
-      #{$prop}-bottom: $length !important;
-      #{$prop}-right: $length !important;
-      #{$prop}-left: $length !important;
+      #{$prop}-top: $length;
+      #{$prop}-bottom: $length;
+      #{$prop}-right: $length;
+      #{$prop}-left: $length;
     }
+  }
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// -----------------------------------------------------------------------------------------------------
+// @ Background
+// -----------------------------------------------------------------------------------------------------
+.bg- {
+  &red {
+    background-color: $danger;
+  }
+
+  &green {
+    background-color: $success;
+  }
+
+  &lightgreen {
+    background-color: $green-200;
+  }
+
+  &white {
+    background-color: #fff;
+  }
+
+  &yellow {
+    background-color: #f3e462;
   }
 }

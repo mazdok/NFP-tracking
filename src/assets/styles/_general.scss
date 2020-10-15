@@ -1,26 +1,5 @@
-@import './variables';
-@import './utilities';
-
-// Colors
-.red {
-  background-color: $danger;
-}
-
-.green {
-  background-color: $success;
-}
-
-.lightgreen {
-  background-color: $lightgray;
-}
-
-.white {
-  background-color: #fff;
-}
-
-.yellow {
-  background-color: #f3e462;
-}
+@import "./variables";
+@import "./utilities";
 
 // Icons
 .el-icon {
@@ -50,12 +29,12 @@
     padding: 1rem;
     background-color: #fff;
     border-radius: 5px;
-    box-shadow: 0 0 1px 0 rgba(0, 0, 0, .1);
-  
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.1);
+
     &__heading {
       display: block;
       margin-top: 0;
-      color: $regular-text;
+      color: $gray-800;
     }
   }
 }
