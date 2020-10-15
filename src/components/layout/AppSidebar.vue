@@ -7,8 +7,8 @@
       :class="{ open: isSidebarOpen }"
       default-active="/"
       router
-      v-hammer:swipe.left="onSwipeLeft"
     >
+      <!-- v-hammer:swipe.left="onSwipeLeft" -->
       <div class="sidebar-user">
         <div class="sidebar-user__info">
           <p class="sidebar-user__name">{{ getUser.name }}</p>
@@ -34,10 +34,12 @@
       </el-submenu>
       <div @click="signOut">
         <el-menu-item index="4">
-          <font-awesome-icon
-            icon="sign-out-alt"
-            class="sidebar-icons"
-          ></font-awesome-icon>
+          <i
+            ><font-awesome-icon
+              icon="sign-out-alt"
+              class="sidebar-icons"
+            ></font-awesome-icon
+          ></i>
           <span>Sign out</span>
         </el-menu-item>
       </div>
@@ -106,12 +108,12 @@ export default {
       });
       this.$store.commit("TOGGLE_SIDEBAR", false);
     },
-    onSwipeLeft() {
-      this.$store.commit("TOGGLE_SIDEBAR", false);
-    },
-    onSwipeRight() {
-      this.$store.commit("TOGGLE_SIDEBAR", true);
-    },
+    // onSwipeLeft() {
+    //   this.$store.commit("TOGGLE_SIDEBAR", false);
+    // },
+    // onSwipeRight() {
+    //   this.$store.commit("TOGGLE_SIDEBAR", true);
+    // },
   },
 };
 </script>

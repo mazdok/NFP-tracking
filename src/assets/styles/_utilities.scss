@@ -40,7 +40,7 @@
 // -----------------------------------------------------------------------------------------------------
 .bg- {
   &red {
-    background-color: $danger;
+    background-color: $red-400;
   }
 
   &green {
@@ -56,6 +56,6 @@
   }
 
   &yellow {
-    background-color: #f3e462;
+    background-color: $yellow-400;
   }
 }

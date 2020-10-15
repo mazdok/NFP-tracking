@@ -49,7 +49,7 @@
 
 <script>
 import CycleHeader from "@/views/Cycles/CycleHeader.vue";
-import AppDay from "@/components/AppDay.vue";
+import AppDay from "@/components/DayCard.vue";
 
 export default {
   components: {

@@ -8,29 +8,24 @@
     <div class="marks mx-auto mb-3">
       <!-- DAY -->
       <app-day class="current-mark" :day="day"></app-day>
+
       <el-radio-group v-model="day.observation.mark" class="marks__wrapper">
         <div>
-          <!-- <el-radio :label="'red'" class="day-form__radio-mark">
-                        <div class="day-form__mark red"></div>
-                    </el-radio> -->
-          <el-radio :label="'yellow'" class="day-form__radio-mark">
+          <el-radio :label="'yellow'" class="day-form__radio-mark mr-3">
             <div class="day-form__mark bg-yellow"></div>
           </el-radio>
-          <el-radio :label="'green'" class="day-form__radio-mark">
+          <el-radio :label="'green'" class="day-form__radio-mark mr-3">
             <div class="day-form__mark bg-green"></div>
           </el-radio>
         </div>
         <div>
-          <el-radio :label="'white'" class="day-form__radio-mark">
+          <el-radio :label="'white'" class="day-form__radio-mark mr-3">
             <div class="day-form__mark bg-white"></div>
           </el-radio>
-          <el-radio :label="'lightgreen'" class="day-form__radio-mark">
+          <el-radio :label="'lightgreen'" class="day-form__radio-mark mr-3">
             <div class="day-form__mark bg-lightgreen"></div>
           </el-radio>
         </div>
-        <!-- <el-radio>
-            <div class="day-form__mark day-form__mark--yellow"></div>
-          </el-radio> -->
       </el-radio-group>
     </div>
     <el-form-item label="Indicator">
@@ -243,7 +238,7 @@
 </template>
 
 <script>
-import AppDay from "@/components/AppDay.vue";
+import AppDay from "@/components/DayCard.vue";
 
 export default {
   components: {
@@ -442,10 +437,6 @@ export default {
     flex-wrap: wrap;
     justify-content: space-between;
   }
-}
-
-.day-form__radio-mark + .day-form__radio-mark {
-  margin-left: 5px;
 }
 
 .observation {
