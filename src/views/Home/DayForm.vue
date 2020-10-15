@@ -28,6 +28,7 @@
         </div>
       </el-radio-group>
     </div>
+
     <el-form-item label="Indicator">
       <el-select
         v-model="day.observation.indicator"
@@ -66,6 +67,7 @@
         </el-option>
       </el-select>
     </el-form-item>
+
     <el-form-item label="Color">
       <el-select
         v-model="day.observation.color"
@@ -91,6 +93,7 @@
         </el-option>
       </el-select>
     </el-form-item>
+
     <el-form-item label="Sensation">
       <el-select
         v-model="day.observation.sensation"
@@ -110,6 +113,7 @@
         </el-option>
       </el-select>
     </el-form-item>
+
     <el-form-item label="Frequency">
       <el-select
         v-model="day.observation.frequency"
@@ -124,6 +128,7 @@
         </el-option>
       </el-select>
     </el-form-item>
+
     <el-row class="show-more">
       <el-button
         @click="showMore = !showMore"
@@ -132,6 +137,7 @@
       >
         {{ showMore ? "Show less" : "Show more" }}
       </el-button>
+
       <el-collapse-transition>
         <div v-show="showMore">
           <el-form-item label="Menstrual">
@@ -216,23 +222,29 @@
       </el-collapse-transition>
     </el-row>
 
-    <div class="observation__btn-group">
-      <el-button
-        v-if="edit"
-        type="primary"
-        @click="editObservation"
-        class="observation__btn-submit"
-      >
+    <div class="text-center mt-4">
+      <el-button v-if="edit" type="primary" @click="editObservation">
         Edit</el-button
       >
-      <el-button
-        v-else
-        type="primary"
-        @click="submitObservation"
-        class="observation__btn-submit"
-      >
-        Create</el-button
-      >
+
+      <template v-else>
+        <el-row>
+          <el-button type="primary" @click="submitObservation">
+            Create
+          </el-button>
+        </el-row>
+
+        <el-row v-if="lastDayInCycle">
+          <el-button
+            type="text"
+            icon="el-icon-document-copy"
+            @click="copyPreviousDay"
+            class="mt-2"
+          >
+            Copy previous day
+          </el-button>
+        </el-row>
+      </template>
     </div>
   </el-form>
 </template>
@@ -258,7 +270,21 @@ export default {
       },
     };
   },
+  computed: {
+    lastDayInCycle() {
+      return this.$store.getters.lastDayInCycle;
+    },
+  },
   methods: {
+    isCardForCurrentDayPresent() {
+      const currentCycle = this.$store.getters.currentCycle;
+      const daysInCycle = this.$store.getters.daysInCycle(currentCycle.id);
+      const today = `${this.day.date.getDate()}-${this.day.date.getMonth()}`;
+      const dates = daysInCycle.map(
+        (day) => day.date.getDate() + "-" + day.date.getMonth()
+      );
+      return dates.some((day) => day === today);
+    },
     submitObservation() {
       const dayObs = this.day.observation;
       const currentDay = {
@@ -278,15 +304,8 @@ export default {
           sex: dayObs.sex,
         },
       };
-      // check for duplicated cards
-      const currentCycle = this.$store.getters.currentCycle;
-      const daysInCycle = this.$store.getters.daysInCycle(currentCycle.id);
-      const today = `${this.day.date.getDate()}-${this.day.date.getMonth()}`;
-      const dates = daysInCycle.map(
-        (day) => day.date.getDate() + "-" + day.date.getMonth()
-      );
 
-      if (dates.some((day) => day === today)) {
+      if (this.isCardForCurrentDayPresent()) {
         this.$confirm(
           "You've already created a card for this day. Create a new card anyway?",
           "Info",
@@ -314,6 +333,9 @@ export default {
       } else {
         this.$store.dispatch("addDay", currentDay);
       }
+    },
+    copyPreviousDay() {
+      this.$store.dispatch("addDay", this.lastDayInCycle);
     },
     editObservation() {
       const dayObs = this.day.observation;
@@ -436,16 +458,6 @@ export default {
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-between;
-  }
-}
-
-.observation {
-  &__btn-group {
-    text-align: center;
-  }
-
-  &__btn-submit {
-    margin-top: 1rem;
   }
 }
 

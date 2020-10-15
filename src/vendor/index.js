@@ -20,10 +20,6 @@ import VueScrollTo from "vue-scrollto";
 import scrollToConfig from "@/config/scrollToConfig";
 Vue.use(VueScrollTo, scrollToConfig);
 
-// VueHammer
-// import { VueHammer } from "vue2-hammer";
-// Vue.use(VueHammer);
-
 // FontAwesome
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -37,3 +33,7 @@ library.add([faBars, faSignOutAlt, faHeart]);
 
 // vue-moment
 Vue.use(require("vue-moment"));
+
+// VueHammer
+// import { VueHammer } from "vue2-hammer";
+// Vue.use(VueHammer);
