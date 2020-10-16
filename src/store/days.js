@@ -178,6 +178,7 @@ export default {
       return state.days;
     },
     lastDayInCycle: (_, getters) => {
+      if (!getters.currentCycle) { return undefined; }
       return getters.daysInCycle(getters.currentCycle.id).slice(-1)[0];
     },
     daysInCycle: (state) => (id) => {

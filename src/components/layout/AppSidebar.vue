@@ -65,6 +65,11 @@ export default {
           path: "/cycles",
           icon: "el-icon-menu",
         },
+        {
+          name: "Settings",
+          path: "/settings",
+          icon: "el-icon-setting",
+        },
       ],
       infoLinks: [
         {
