@@ -1,5 +1,5 @@
 import { firestoreAction } from "vuexfire";
-import Vue from "vue";
+import db from "@/db";
 
 export default {
   state: {
@@ -9,14 +9,19 @@ export default {
     bindAccounts: firestoreAction(({ bindFirestoreRef, _, getters }) => {
       return bindFirestoreRef(
         "account",
-        Vue.$db.collection("accounts").doc(getters.getUserId)
+        db.collection("accounts").doc(getters.getUserId)
       );
     }),
-    editAccount({ _, getters }, payload) {
-      Vue.$db
-        .collection("accounts")
+    editAccount({ _, getters, commit }, payload) {
+      db.collection("accounts")
         .doc(getters.getUserId)
         .set(payload);
+
+      commit("SET_SHOULD_UPDATE_STATE", true);
     },
+  },
+  getters: {
+    isCervix: (state) => state.account?.observations?.cervix,
+    numOfCyclesToShow: (state) => state.account?.numOfCycles || 3,
   },
 };

@@ -6,11 +6,12 @@
       :index="index"
       :daysInCycle="daysInCycle(cycle.id)"
     ></cycle-header>
+
     <div class="days">
       <h3 v-if="!daysInCycle(cycle.id).length" class="cycle__empty">
         The cycle has no days
       </h3>
-      <!-- <div v-for="(day, index) in days.filter(day => day.cycle_id === cycle.id)"  -->
+
       <div
         v-for="(day, index) in daysInCycle(cycle.id)"
         :key="day.id"
@@ -28,10 +29,11 @@
           <app-day
             :index="index + 1"
             :day="day"
-            :class="{ squeezed: cycle.squeezed }"
+            :isSqueezed="cycle.squeezed"
           ></app-day>
         </router-link>
       </div>
+
       <div v-show="cycle.current" class="add-day">
         <router-link to="/">
           <el-button
@@ -91,6 +93,7 @@ export default {
   &__empty {
     font-size: 1rem;
     text-transform: uppercase;
+    color: $gray-500;
   }
 }
 

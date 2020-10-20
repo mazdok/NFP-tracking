@@ -1,59 +1,35 @@
 <template>
-  <div class="home">
+  <div>
     <el-alert v-if="getError" :title="getError.message" type="error"></el-alert>
 
-    <h1 class="hidden-sm-and-down">Add Day</h1>
-    
-    <el-row type="flex" justify="center">
-      <el-col :span="10">
-        <app-date :date="day.date"></app-date>
-      </el-col>
-    </el-row>
+    <el-card class="mt-3" shadow="never">
+      <div slot="header">
+        <el-row type="flex" justify="space-between" align="middle">
+          <h3 class="my-0">Track</h3>
+          <app-date></app-date>
+        </el-row>
+      </div>
 
-    <el-row type="flex" justify="center"></el-row>
-    
-    <el-row>
-      <!-- DAY FORM -->
-      <day-form :day="day"></day-form>
-    </el-row>
+      <el-row>
+        <day-form></day-form>
+      </el-row>
+    </el-card>
   </div>
 </template>
 
 <script>
 import DayForm from "@/views/Home/DayForm.vue";
 import AppDate from "@/views/Home/AppDate.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "home",
   components: {
     DayForm,
-    AppDate
-  },
-  data() {
-    return {
-      day: {
-        id: null,
-        date: new Date(),
-        observation: {
-          mark: null,
-          menstrual: null,
-          indicator: null,
-          color: null,
-          sensation: null,
-          frequency: "AD",
-          peak: false,
-          dayCount: 0,
-          intercourse: false,
-          comment: "",
-          sex: false
-        }
-      }
-    };
+    AppDate,
   },
   computed: {
-    getError() {
-      return this.$store.getters.getError;
-    }
-  }
+    ...mapGetters(["getError"]),
+  },
 };
 </script>

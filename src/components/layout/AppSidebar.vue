@@ -15,12 +15,14 @@
           <p class="sidebar-user__email">{{ getUser.email }}</p>
         </div>
       </div>
+
       <slot v-for="link in menuLinks">
         <el-menu-item :index="link.path" @click="itemClicked">
           <i class="sidebar-icons" :class="link.icon"></i>
           <span>{{ link.name }}</span>
         </el-menu-item>
       </slot>
+
       <el-submenu index="/info">
         <template slot="title">
           <i class="el-icon-question sidebar-icons"></i>
@@ -32,6 +34,12 @@
           </el-menu-item>
         </slot>
       </el-submenu>
+
+      <el-menu-item index="/about" @click="itemClicked">
+        <i class="sidebar-icons" :class="'el-icon-info'"></i>
+        <span>About</span>
+      </el-menu-item>
+
       <div @click="signOut">
         <el-menu-item index="4">
           <i
@@ -56,7 +64,7 @@ export default {
     return {
       menuLinks: [
         {
-          name: "Add day",
+          name: "Track",
           path: "/",
           icon: "el-icon-circle-plus",
         },

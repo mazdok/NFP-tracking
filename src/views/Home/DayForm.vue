@@ -1,5 +1,6 @@
 <template>
   <el-form
+    label-position="top"
     ref="form"
     :model="day.observation"
     label-width="80px"
@@ -7,28 +8,28 @@
   >
     <div class="marks mx-auto mb-3">
       <!-- DAY -->
-      <app-day class="current-mark" :day="day"></app-day>
+      <app-day :day="day" class="mr-3"></app-day>
 
-      <el-radio-group v-model="day.observation.mark" class="marks__wrapper">
-        <div>
+      <!-- Mark colors -->
+      <el-form-item label="Mark color">
+        <el-radio-group v-model="day.observation.mark" class="marks__wrapper">
           <el-radio :label="'yellow'" class="day-form__radio-mark mr-3">
-            <div class="day-form__mark bg-yellow"></div>
+            <div class="day-form__mark shadow bg-yellow"></div>
           </el-radio>
           <el-radio :label="'green'" class="day-form__radio-mark mr-3">
-            <div class="day-form__mark bg-green"></div>
-          </el-radio>
-        </div>
-        <div>
-          <el-radio :label="'white'" class="day-form__radio-mark mr-3">
-            <div class="day-form__mark bg-white"></div>
+            <div class="day-form__mark shadow bg-green"></div>
           </el-radio>
           <el-radio :label="'lightgreen'" class="day-form__radio-mark mr-3">
-            <div class="day-form__mark bg-lightgreen"></div>
+            <div class="day-form__mark shadow bg-lightgreen"></div>
           </el-radio>
-        </div>
-      </el-radio-group>
+          <el-radio :label="'white'" class="day-form__radio-mark mr-3">
+            <div class="day-form__mark shadow bg-white"></div>
+          </el-radio>
+        </el-radio-group>
+      </el-form-item>
     </div>
 
+    <!-- Indicator -->
     <el-form-item label="Indicator">
       <el-select
         v-model="day.observation.indicator"
@@ -68,6 +69,7 @@
       </el-select>
     </el-form-item>
 
+    <!-- Color -->
     <el-form-item label="Color">
       <el-select
         v-model="day.observation.color"
@@ -94,6 +96,7 @@
       </el-select>
     </el-form-item>
 
+    <!-- Sensation -->
     <el-form-item label="Sensation">
       <el-select
         v-model="day.observation.sensation"
@@ -114,6 +117,7 @@
       </el-select>
     </el-form-item>
 
+    <!-- Frequency -->
     <el-form-item label="Frequency">
       <el-select
         v-model="day.observation.frequency"
@@ -129,6 +133,78 @@
       </el-select>
     </el-form-item>
 
+    <!-- Cervix -->
+    <el-row v-if="isCervix" class="cervix-row">
+      <h4>Cervix</h4>
+      <!-- Cervical Position -->
+      <el-form-item label="Cervical Position">
+        <el-radio
+          v-model="day.observation.cervix.position"
+          border
+          size="small"
+          label="L"
+          >Low</el-radio
+        >
+        <el-radio
+          v-model="day.observation.cervix.position"
+          border
+          size="small"
+          label="M"
+          >Medium</el-radio
+        >
+        <el-radio
+          v-model="day.observation.cervix.position"
+          border
+          size="small"
+          label="H"
+          >High</el-radio
+        >
+      </el-form-item>
+
+      <!-- Firmness -->
+      <el-form-item label="Tissue Softness">
+        <el-radio
+          v-model="day.observation.cervix.firmness"
+          border
+          size="small"
+          label="F"
+          >Firm (F)</el-radio
+        >
+        <el-radio
+          v-model="day.observation.cervix.firmness"
+          border
+          size="small"
+          label="S"
+          >Soft (S)</el-radio
+        >
+      </el-form-item>
+
+      <!-- Cervical Opening -->
+      <el-form-item label="Cervical Opening">
+        <el-radio
+          v-model="day.observation.cervix.opening"
+          border
+          size="small"
+          label="0"
+          >Closed</el-radio
+        >
+        <el-radio
+          v-model="day.observation.cervix.opening"
+          border
+          size="small"
+          label="1"
+          >Partially open</el-radio
+        >
+        <el-radio
+          v-model="day.observation.cervix.opening"
+          border
+          size="small"
+          label="2"
+          >Open</el-radio
+        >
+      </el-form-item>
+    </el-row>
+
     <el-row class="show-more">
       <el-button
         @click="showMore = !showMore"
@@ -140,6 +216,7 @@
 
       <el-collapse-transition>
         <div v-show="showMore">
+          <!-- Menstrual -->
           <el-form-item label="Menstrual">
             <el-select
               v-model="day.observation.menstrual"
@@ -165,25 +242,29 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-row :gutter="20">
-            <el-col :span="8">
-              <el-form-item label="Peak">
-                <el-checkbox v-model="day.observation.peak"></el-checkbox>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="Intercourse">
-                <el-checkbox
-                  v-model="day.observation.intercourse"
-                ></el-checkbox>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item label="Sex">
-                <el-checkbox v-model="day.observation.sex"></el-checkbox>
-              </el-form-item>
-            </el-col>
-          </el-row>
+
+          <!-- Peak / Intercourse / Sex -->
+          <el-form-item>
+            <el-checkbox
+              v-model="day.observation.peak"
+              label="Peak"
+              border
+              size="small"
+            ></el-checkbox>
+            <el-checkbox
+              v-model="day.observation.intercourse"
+              label="Intercourse"
+              border
+              size="small"
+            ></el-checkbox>
+            <el-checkbox
+              v-model="day.observation.sex"
+              label="Sex"
+              border
+              size="small"
+            ></el-checkbox>
+          </el-form-item>
+
           <el-slider
             v-if="day.observation.peak"
             v-model="day.observation.dayCount"
@@ -193,6 +274,7 @@
           >
           </el-slider>
 
+          <!-- Date -->
           <el-form-item label="Date">
             <el-date-picker
               v-model="day.date"
@@ -203,13 +285,17 @@
             </el-date-picker>
           </el-form-item>
 
-          <el-input
-            type="textarea"
-            :rows="2"
-            placeholder="You can leave here a comment"
-            v-model="day.observation.comment"
-          ></el-input>
+          <!-- Comment -->
+          <el-form-item label="Comment">
+            <el-input
+              type="textarea"
+              :rows="2"
+              placeholder="You can leave here a comment"
+              v-model="day.observation.comment"
+            ></el-input>
+          </el-form-item>
 
+          <!-- Remove day -->
           <div class="danger-zone" v-if="edit">
             <el-button
               type="danger"
@@ -222,6 +308,7 @@
       </el-collapse-transition>
     </el-row>
 
+    <!-- Footer actions -->
     <div class="text-center mt-4">
       <el-button v-if="edit" type="primary" @click="editObservation">
         Edit</el-button
@@ -251,17 +338,39 @@
 
 <script>
 import AppDay from "@/components/DayCard.vue";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
     AppDay,
   },
   props: {
-    day: Object,
-    edit: Boolean,
+    dayData: Object,
   },
   data() {
     return {
+      day: {
+        id: null,
+        date: new Date(),
+        observation: {
+          mark: null,
+          menstrual: null,
+          indicator: null,
+          color: null,
+          sensation: null,
+          frequency: "AD",
+          peak: false,
+          dayCount: 0,
+          intercourse: false,
+          comment: "",
+          sex: false,
+          cervix: {
+            firmness: "F",
+            opening: 0,
+            position: "L",
+          },
+        },
+      },
       showMore: false,
       dateOptions: {
         disabledDate(time) {
@@ -271,14 +380,31 @@ export default {
     };
   },
   computed: {
-    lastDayInCycle() {
-      return this.$store.getters.lastDayInCycle;
+    ...mapGetters([
+      "isCervix",
+      "currentCycle",
+      "daysInCycle",
+      "lastDayInCycle",
+    ]),
+    edit() {
+      return !!this.dayData;
     },
+  },
+  created() {
+    if (this.dayData) {
+      this.day = {
+        ...this.day,
+        ...this.dayData,
+        observation: {
+          ...this.day.observation,
+          ...this.dayData.observation,
+        },
+      };
+    }
   },
   methods: {
     isCardForCurrentDayPresent() {
-      const currentCycle = this.$store.getters.currentCycle;
-      const daysInCycle = this.$store.getters.daysInCycle(currentCycle.id);
+      const daysInCycle = this.daysInCycle(this.currentCycle.id);
       const today = `${this.day.date.getDate()}-${this.day.date.getMonth()}`;
       const dates = daysInCycle.map(
         (day) => day.date.getDate() + "-" + day.date.getMonth()
@@ -286,25 +412,6 @@ export default {
       return dates.some((day) => day === today);
     },
     submitObservation() {
-      const dayObs = this.day.observation;
-      const currentDay = {
-        id: null,
-        date: this.day.date,
-        observation: {
-          mark: dayObs.mark,
-          menstrual: dayObs.menstrual,
-          indicator: dayObs.indicator,
-          color: dayObs.color,
-          sensation: dayObs.sensation,
-          frequency: dayObs.frequency,
-          peak: dayObs.peak,
-          dayCount: dayObs.dayCount,
-          intercourse: dayObs.intercourse,
-          comment: dayObs.comment,
-          sex: dayObs.sex,
-        },
-      };
-
       if (this.isCardForCurrentDayPresent()) {
         this.$confirm(
           "You've already created a card for this day. Create a new card anyway?",
@@ -321,7 +428,7 @@ export default {
               duration: 500,
               message: "The cart was successfully created",
             });
-            this.$store.dispatch("addDay", currentDay);
+            this.$store.dispatch("addDay", this.day);
           })
           .catch(() => {
             this.$message({
@@ -331,32 +438,13 @@ export default {
             });
           });
       } else {
-        this.$store.dispatch("addDay", currentDay);
+        this.$store.dispatch("addDay", this.day);
       }
     },
     copyPreviousDay() {
       this.$store.dispatch("addDay", this.lastDayInCycle);
     },
     editObservation() {
-      const dayObs = this.day.observation;
-      const currentDay = {
-        id: this.day.id,
-        cycle_id: this.day.cycle_id,
-        date: this.day.date,
-        observation: {
-          mark: dayObs.mark,
-          menstrual: dayObs.menstrual,
-          indicator: dayObs.indicator,
-          color: dayObs.color,
-          sensation: dayObs.sensation,
-          frequency: dayObs.frequency,
-          peak: dayObs.peak,
-          dayCount: dayObs.dayCount,
-          intercourse: dayObs.intercourse,
-          comment: dayObs.comment,
-          sex: dayObs.sex,
-        },
-      };
       this.$confirm(
         "Do you want to edit a day? Changes cannot be reversed",
         "Warning",
@@ -371,8 +459,7 @@ export default {
             type: "success",
             message: "The data has been successfully updated",
           });
-          // edit
-          this.$store.dispatch("editDay", currentDay);
+          this.$store.dispatch("editDay", this.day);
           this.$router.push("/cycles");
         })
         .catch(() => {
@@ -395,8 +482,9 @@ export default {
             duration: 1000,
             message: "The day was deleted",
           });
-          // delete
-          this.$store.dispatch("deleteDay", id);
+          this.$store
+            .dispatch("deleteDay", id)
+            .then(() => this.$router.push("/cycles"));
         })
         .catch(() => {
           this.$message({
@@ -413,35 +501,16 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/styles/_variables.scss";
 
-.current-mark {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  width: 70px;
-  height: 140px;
-  text-align: center;
-  padding: 10px 10px 20px 10px;
-  border-radius: 5px;
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
-  & .day__peak {
-    top: 45%;
-  }
-}
-
 .day-form {
   &__mark {
-    @extend .current-mark;
     width: 40px;
-    height: 40px;
+    height: 60px;
   }
 
   @media screen and (min-width: 768px) {
     max-width: 700px;
     margin: 0 auto;
     background-color: #fff;
-    box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.1);
     padding: 1.5rem 1rem 2rem;
     border-radius: 5px;
   }
@@ -450,12 +519,12 @@ export default {
 .marks {
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  max-width: 280px;
+  justify-content: space-between;
+  max-width: 400px; // FIXME
 
   &__wrapper {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
   }
@@ -474,5 +543,20 @@ export default {
 .danger-zone {
   text-align: right;
   padding-top: 1rem;
+}
+
+.cervix-row {
+  background-color: $gray-100;
+  margin: 20px -20px;
+  padding: 0 20px;
+
+  @media screen and (min-width: 768px) {
+    margin: 20px 0px;
+  }
+}
+
+.el-radio,
+.el-checkbox {
+  margin-right: 10px;
 }
 </style>

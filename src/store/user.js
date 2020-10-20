@@ -41,11 +41,12 @@ export default {
           });
 
           // create an account document
+          // FIXME do I need it? What if account created before?
           const userUid = data.user.uid;
           Vue.$db
             .collection("accounts")
             .doc(userUid)
-            .set({}); // FIXME Initialize a default account structure?
+            .set({});
 
           commit("SET_PROCESSING", false);
         })

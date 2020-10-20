@@ -16,6 +16,17 @@
         </el-switch>
       </div>
     </el-card>
+
+    <el-card shadow="never" class="mt-4">
+      <div slot="header" class="clearfix">
+        <h4 class="my-0">The number of displayed cycles</h4>
+      </div>
+
+      <div>
+        <el-input-number v-model="accountSettings.numOfCycles" :min="1">
+        </el-input-number>
+      </div>
+    </el-card>
   </div>
 </template>
 
@@ -28,6 +39,7 @@ export default {
       observations: {
         cervix: false,
       },
+      numOfCycles: 3,
     },
   }),
   computed: mapState({
@@ -35,7 +47,7 @@ export default {
   }),
   watch: {
     accountSettings: {
-      handler(value) {
+      handler() {
         const account = {
           ...this.account,
           ...this.accountSettings,
@@ -48,7 +60,7 @@ export default {
   },
   async created() {
     const account = await this.$store.dispatch("bindAccounts");
-    this.accountSettings = { ...this.accountSettings, ...this.account };
+    this.accountSettings = { ...this.accountSettings, ...account };
   },
 };
 </script>

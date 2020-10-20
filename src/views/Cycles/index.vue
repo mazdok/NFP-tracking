@@ -15,7 +15,7 @@
 
     <div class="cycles" v-loading="getProcessing">
       <h3 v-if="!cycles.length" class="cycle__empty">
-        No cycles yet. Click the "plus" button to create one
+        No cycles yet. Click the "Add a cycle" button to create one
       </h3>
       <div class="mb-4" v-for="(cycle, index) in cycles" :key="cycle.id">
         <!-- CYCLE -->
@@ -40,6 +40,15 @@ export default {
     addCycle() {
       this.$store.dispatch("addCycle");
     },
+  },
+  created() {
+    // update state if there is new changes
+    if (this.$store.state.cyclesModule.shouldUpdateState) {
+      this.$store
+        .dispatch("setLoadedCycles")
+        .then(() => this.$store.dispatch("bindDays"))
+        .then(() => this.$store.commit("SET_SHOULD_UPDATE_STATE", false));
+    }
   },
 };
 </script>

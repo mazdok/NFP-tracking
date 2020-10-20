@@ -26,6 +26,7 @@
     "vuexfire": "^3.2.4"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.12.1",
     "@vue/cli-plugin-babel": "^3.3.0",
     "@vue/cli-plugin-eslint": "^3.3.0",
     "@vue/cli-plugin-pwa": "^3.3.0",
@@ -51,7 +52,15 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "rules": {},
+    "rules": {
+      "no-unused-vars": [
+        2,
+        {
+          "args": "after-used",
+          "argsIgnorePattern": "^_"
+        }
+      ]
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }
