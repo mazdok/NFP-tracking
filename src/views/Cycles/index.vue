@@ -1,9 +1,9 @@
 <template>
-  <div class="cycles-page">
+  <el-card shadow="never" class="cycles-page">
     <el-alert v-if="getError" :title="getError.message" type="error"></el-alert>
 
-    <div class="add-cycles__wrapper">
-      <h1 class="mr-2 mb-3">Cycles</h1>
+    <div slot="header" class="add-cycles__wrapper">
+      <h1 class="mr-2 my-0">Cycles</h1>
       <el-button
         type="text"
         icon="el-icon-plus"
@@ -22,7 +22,7 @@
         <app-cycle :cycle="cycle" :index="index"></app-cycle>
       </div>
     </div>
-  </div>
+  </el-card>
 </template>
 
 <script>

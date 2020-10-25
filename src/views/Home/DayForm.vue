@@ -13,16 +13,19 @@
       <!-- Mark colors -->
       <el-form-item label="Mark color">
         <el-radio-group v-model="day.observation.mark" class="marks__wrapper">
-          <el-radio :label="'yellow'" class="day-form__radio-mark mr-3">
+          <el-radio :label="'yellow'" class="day-form__radio-mark mr-3 mb-2">
             <div class="day-form__mark shadow bg-yellow"></div>
           </el-radio>
-          <el-radio :label="'green'" class="day-form__radio-mark mr-3">
+          <el-radio :label="'green'" class="day-form__radio-mark mr-3 mb-2">
             <div class="day-form__mark shadow bg-green"></div>
           </el-radio>
-          <el-radio :label="'lightgreen'" class="day-form__radio-mark mr-3">
+          <el-radio
+            :label="'lightgreen'"
+            class="day-form__radio-mark mr-3 mb-2"
+          >
             <div class="day-form__mark shadow bg-lightgreen"></div>
           </el-radio>
-          <el-radio :label="'white'" class="day-form__radio-mark mr-3">
+          <el-radio :label="'white'" class="day-form__radio-mark mr-3 mb-2">
             <div class="day-form__mark shadow bg-white"></div>
           </el-radio>
         </el-radio-group>
@@ -119,23 +122,23 @@
 
     <!-- Frequency -->
     <el-form-item label="Frequency">
-      <el-select
-        v-model="day.observation.frequency"
-        placeholder="Please select an option"
-      >
-        <el-option label="N/A" value=""></el-option>
-        <el-option label="X1" value="X1"></el-option>
-        <el-option label="X2" value="X2"></el-option>
-        <el-option label="X3" value="X3"></el-option>
-        <el-option value="AD">
-          <strong>AD</strong> - <small> all day</small>
-        </el-option>
-      </el-select>
+      <el-radio-group v-model="day.observation.frequency" size="small">
+        <el-radio-button label="" border>N/A</el-radio-button>
+        <el-radio-button label="X1" border>X1</el-radio-button>
+        <el-radio-button label="X2" border>X2</el-radio-button>
+        <el-radio-button label="X3" border>X3</el-radio-button>
+        <el-radio-button label="AD" border
+          >AD - <small> all day</small></el-radio-button
+        >
+      </el-radio-group>
     </el-form-item>
 
     <!-- Cervix -->
     <el-row v-if="isCervix" class="cervix-row">
-      <h4>Cervix</h4>
+      <el-row type="flex" justify="start" align="middle">
+        <h4 class="mr-3">Cervix</h4>
+        <el-switch v-model="isCervixEnabled"></el-switch>
+      </el-row>
       <!-- Cervical Position -->
       <el-form-item label="Cervical Position">
         <el-radio
@@ -265,14 +268,20 @@
             ></el-checkbox>
           </el-form-item>
 
-          <el-slider
-            v-if="day.observation.peak"
-            v-model="day.observation.dayCount"
-            :step="1"
-            :max="3"
-            show-stops
-          >
-          </el-slider>
+          <div v-if="day.observation.peak">
+            <label for="peak-day">
+              <small>Peak day</small>
+            </label>
+            <el-slider
+              v-model="day.observation.dayCount"
+              :step="1"
+              :max="3"
+              show-stops
+              id="peak-day"
+              :marks="{ 1: '1', 2: '2', 3: '3' }"
+            >
+            </el-slider>
+          </div>
 
           <!-- Date -->
           <el-form-item label="Date">
@@ -289,7 +298,7 @@
           <el-form-item label="Comment">
             <el-input
               type="textarea"
-              :rows="2"
+              :rows="1"
               placeholder="You can leave here a comment"
               v-model="day.observation.comment"
             ></el-input>
@@ -365,9 +374,9 @@ export default {
           comment: "",
           sex: false,
           cervix: {
-            firmness: "F",
-            opening: 0,
-            position: "L",
+            firmness: null,
+            opening: null,
+            position: null,
           },
         },
       },
@@ -377,6 +386,7 @@ export default {
           return time.getTime() > Date.now();
         },
       },
+      isCervixEnabled: false,
     };
   },
   computed: {
@@ -388,6 +398,41 @@ export default {
     ]),
     edit() {
       return !!this.dayData;
+    },
+    isCervixObservationsEmpty() {
+      const cervix = this.day.observation.cervix;
+      return !cervix?.firmness && !cervix?.opening && !cervix?.position;
+    },
+  },
+  watch: {
+    isCervixEnabled(value) {
+      if (!value) {
+        this.updateDayObservation({
+          cervix: {
+            firmness: null,
+            opening: null,
+            position: null,
+          },
+        });
+      }
+
+      if (value && this.isCervixObservationsEmpty) {
+        this.updateDayObservation({
+          cervix: {
+            firmness: "F",
+            opening: "0",
+            position: "L",
+          },
+        });
+      }
+    },
+    "day.observation.cervix": {
+      deep: true,
+      handler(val) {
+        if (!this.isCervixObservationsEmpty) {
+          this.isCervixEnabled = true;
+        }
+      },
     },
   },
   created() {
@@ -403,6 +448,15 @@ export default {
     }
   },
   methods: {
+    updateDayObservation(observationData) {
+      this.day = {
+        ...this.day,
+        observation: {
+          ...this.day.observation,
+          ...observationData,
+        },
+      };
+    },
     isCardForCurrentDayPresent() {
       const daysInCycle = this.daysInCycle(this.currentCycle.id);
       const today = `${this.day.date.getDate()}-${this.day.date.getMonth()}`;
@@ -503,8 +557,8 @@ export default {
 
 .day-form {
   &__mark {
-    width: 40px;
-    height: 60px;
+    width: 50px;
+    height: 80px;
   }
 
   @media screen and (min-width: 768px) {
@@ -526,7 +580,7 @@ export default {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 }
 

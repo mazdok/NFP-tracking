@@ -1,5 +1,8 @@
 <template>
-  <span class="text-gray--700">{{ formattedDate }}</span>
+  <div>
+    <i class="el-icon-date text-gray mr-2"></i>
+    <span class="text-gray--700">{{ formattedDate }}</span>
+  </div>
 </template>
 
 <script>

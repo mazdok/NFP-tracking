@@ -1,6 +1,6 @@
 <template>
   <div v-loading="!day">
-    <el-card v-if="day" class="mt-3" shadow="never">
+    <el-card v-if="day" shadow="never">
       <div slot="header">
         <el-row type="flex" justify="space-between" align="middle">
           <h3 class="my-0">Edit day</h3>
@@ -36,6 +36,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-</style>

@@ -1,7 +1,13 @@
 <template>
   <div class="cervix">
-    <div class="cervix__firmness mr-1">{{ cervix.firmness }}</div>
-    <div class="indicator" :class="[indicatorPosition, indicatorOpening]"></div>
+    <div v-if="cervix.firmness" class="cervix__firmness mr-1">
+      {{ cervix.firmness }}
+    </div>
+    <div
+      v-if="cervix.opening && cervix.position"
+      class="indicator"
+      :class="[indicatorPosition, indicatorOpening]"
+    ></div>
   </div>
 </template>
 

@@ -159,6 +159,7 @@ export default {
   text-align: center;
   padding: 10px 5px 40px 5px;
   border-radius: 5px;
+  flex-shrink: 0;
 
   &__info {
     display: flex;

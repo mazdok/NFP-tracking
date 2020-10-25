@@ -2,7 +2,7 @@
   <div>
     <el-alert v-if="getError" :title="getError.message" type="error"></el-alert>
 
-    <el-card class="mt-3" shadow="never">
+    <el-card shadow="never">
       <div slot="header">
         <el-row type="flex" justify="space-between" align="middle">
           <h3 class="my-0">Track</h3>
