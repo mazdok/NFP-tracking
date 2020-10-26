@@ -1,33 +1,33 @@
 <template>
-  <div>
-    <h1 class="mb-4">User Settings</h1>
+  <el-card shadow="never">
+    <div slot="header">
+      <h1 class="my-0">User Settings</h1>
+    </div>
 
-    <el-card shadow="never">
-      <div slot="header" class="clearfix">
-        <h4 class="my-0">Observations</h4>
-      </div>
+    <div>
+      <el-row class="mb-5">
+        <h4 class="mb-4 mt-0">Observations</h4>
 
-      <div>
-        <el-switch
-          style="display: block"
-          v-model="accountSettings.observations.cervix"
-          inactive-text="Cervix observation"
-        >
-        </el-switch>
-      </div>
-    </el-card>
+        <div>
+          <el-switch
+            style="display: block"
+            v-model="accountSettings.observations.cervix"
+            inactive-text="Cervix observation"
+          >
+          </el-switch>
+        </div>
+      </el-row>
 
-    <el-card shadow="never" class="mt-4">
-      <div slot="header" class="clearfix">
-        <h4 class="my-0">The number of displayed cycles</h4>
-      </div>
+      <el-row class="mt-4">
+        <h4 class="mb-4 mt-0">The number of displayed cycles</h4>
 
-      <div>
-        <el-input-number v-model="accountSettings.numOfCycles" :min="1">
-        </el-input-number>
-      </div>
-    </el-card>
-  </div>
+        <div>
+          <el-input-number v-model="accountSettings.numOfCycles" :min="1">
+          </el-input-number>
+        </div>
+      </el-row>
+    </div>
+  </el-card>
 </template>
 
 <script>

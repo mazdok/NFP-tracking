@@ -1,8 +1,8 @@
 <template>
-  <div class="signup">
+  <div>
     <page-header>Login</page-header>
 
-    <el-row>
+    <el-row class="p-3">
       <el-alert v-if="error" :title="error" show-icon type="error"> </el-alert>
       <el-form ref="form" class="auth-form">
         <h3 class="auth-form__heading">Login</h3>
@@ -66,7 +66,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-@import "@/assets/styles/_variables.scss";
-</style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <el-card shadow="never">
     <h1>NFP <small>(Natural Family Planning)</small> Tracking App</h1>
     <p>
       A small project that aims to facilitate the process of research on its
@@ -30,7 +30,7 @@
         <a href="mailto:grydzhukpavlo@gmail.com">grydzhukpavlo@gmail.com</a>
       </p>
     </address>
-  </div>
+  </el-card>
 </template>
 
 <script>

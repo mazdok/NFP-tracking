@@ -1,5 +1,5 @@
 <template>
-  <div class="day shadow" :class="[markClass, { squeezed: isSqueezed }]">
+  <div class="day shadow-md" :class="[markClass, { squeezed: isSqueezed }]">
     <!-- Background img -->
     <div v-if="isDayHasImage(day)" class="day__img fill-current">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -154,8 +154,8 @@ export default {
 // FIXME clean up styles
 .day {
   position: relative;
-  width: 75px;
-  height: 130px;
+  width: 65px;
+  height: 120px;
   text-align: center;
   padding: 10px 5px 40px 5px;
   border-radius: 5px;
@@ -239,7 +239,7 @@ export default {
 }
 
 .day.squeezed {
-  width: 55px;
+  width: 40px;
   height: 77px;
   text-align: center;
   padding: 10px;
@@ -276,6 +276,11 @@ export default {
     right: 5px;
     top: 50%;
     transform: translate(0, -50%);
+  }
+
+  .day__img {
+    width: 70%;
+    top: 40%;
   }
 }
 
