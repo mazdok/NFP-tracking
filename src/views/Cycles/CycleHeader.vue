@@ -1,19 +1,26 @@
 <template>
-  <div class="cycle__info" :class="{'active': cycle.current}">
+  <div class="cycle__info" :class="{ active: cycle.current }">
     <div>
-      <el-button
-        size="mini"
-        :type="cycle.current? 'success' : ''"
-        :icon="cycle.current? 'el-icon-check' : 'el-icon-plus'"
-        circle
-        @click="setCurrentCycle(cycle.id)"
-      ></el-button>
-      <!-- <span v-if="cycle.current" class="cycle__current">Current</span> -->
+      <el-tooltip
+        class="item"
+        effect="dark"
+        content="Press to make this cycle current"
+        placement="right-start"
+        :open-delay="1000"
+      >
+        <el-button
+          size="mini"
+          :type="cycle.current ? 'success' : ''"
+          :icon="cycle.current ? 'el-icon-check' : 'el-icon-plus'"
+          circle
+          @click="setCurrentCycle(cycle.id)"
+        ></el-button>
+      </el-tooltip>
     </div>
-    <span
-      v-if="daysInCycle.length"
-      class="cycle__dates"
-    >{{cycleStartDate | moment("DD-MM-YYYY")}} - {{cycleEndDate | moment("DD-MM-YYYY")}}</span>
+    <span v-if="daysInCycle.length" class="cycle__dates"
+      >{{ cycleStartDate | moment("DD-MM-YYYY") }} -
+      {{ cycleEndDate | moment("DD-MM-YYYY") }}</span
+    >
     <el-dropdown size="small" trigger="click">
       <span class="el-dropdown-link">
         <i class="el-icon-more el-icon--right el-icon--vertical"></i>
@@ -25,8 +32,9 @@
             class="menu-block-btn"
             size="mini"
             type="text"
-            :icon="cycle.squeezed? 'el-icon-plus' : 'el-icon-minus'"
-          >{{cycle.squeezed? 'Expand days' : 'Minify days'}}</el-button>
+            :icon="cycle.squeezed ? 'el-icon-plus' : 'el-icon-minus'"
+            >{{ cycle.squeezed ? "Expand days" : "Minify days" }}</el-button
+          >
         </el-dropdown-item>
         <el-dropdown-item v-if="!cycle.current">
           <el-button
@@ -34,7 +42,8 @@
             type="text"
             icon="el-icon-check"
             @click="setCurrentCycle(cycle.id)"
-          >{{'Set cycle as current'}}</el-button>
+            >{{ "Set cycle as current" }}</el-button
+          >
         </el-dropdown-item>
         <el-dropdown-item>
           <el-button
@@ -42,7 +51,8 @@
             type="text"
             icon="el-icon-delete"
             @click="deleteCycle(cycle.id)"
-          >Delete row</el-button>
+            >Delete cycle</el-button
+          >
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
@@ -56,7 +66,7 @@ export default {
   props: {
     cycle: Object,
     index: Number,
-    daysInCycle: Array
+    daysInCycle: Array,
   },
   computed: {
     days() {
@@ -67,13 +77,13 @@ export default {
     },
     cycleEndDate() {
       return this.daysInCycle.slice(-1)[0].date;
-    }
+    },
   },
   methods: {
     ...mapActions({
       setCycleAsCurrent: "setCurrentCycle",
       removeCycle: "deleteCycle",
-      resizeDaysInCycle: "resizeCycle"
+      resizeDaysInCycle: "resizeCycle",
     }),
     setCurrentCycle(id) {
       this.setCycleAsCurrent(id);
@@ -85,13 +95,13 @@ export default {
         {
           confirmButtonText: "Yes",
           cancelButtonText: "Cancel",
-          type: "warning"
+          type: "warning",
         }
       )
         .then(() => {
           this.$message({
             type: "success",
-            message: "Delete completed"
+            message: "Delete completed",
           });
           //remove cycle
           this.removeCycle(id);
@@ -99,20 +109,19 @@ export default {
         .catch(() => {
           this.$message({
             type: "info",
-            message: "Delete canceled"
+            message: "Delete canceled",
           });
         });
     },
     resizeCycle(cycleId) {
       this.resizeDaysInCycle(cycleId);
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/styles/variables.scss";
-@import "@/assets/styles/general.scss";
+@import "@/assets/styles/_variables.scss";
 
 .cycle {
   &__info {

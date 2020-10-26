@@ -1,92 +1,67 @@
 <template>
-  <div class="cycles-page">
-    <el-alert
-      v-if="getError"
-      :title="getError.message"
-      type="error">
-    </el-alert>
+  <el-card shadow="never" class="cycles-page">
+    <el-alert v-if="getError" :title="getError.message" type="error"></el-alert>
 
-    <div class="add-cycles__wrapper">
-      <h1 class="mr-2">Cycles</h1>
-      <el-button 
-        size="mini"
-        type="success" 
-        icon="el-icon-plus" 
-        circle
-        class="add-cycle__btn" 
-        @click="addCycle"></el-button>
+    <div slot="header" class="add-cycles__wrapper">
+      <h1 class="mr-2 my-0">Cycles</h1>
+      <el-button
+        type="text"
+        icon="el-icon-plus"
+        class="add-cycle__btn"
+        @click="addCycle"
+        >Add a cycle</el-button
+      >
     </div>
 
     <div class="cycles" v-loading="getProcessing">
-      <!-- <el-button 
-        type="success" 
-        icon="el-icon-plus" 
-        circle 
-        class="add-cycle-btn"
-        @click="addCycle"></el-button> -->
-        
-      <h3 v-if="!cycles.length" class="cycle__empty">No cycles yet. Click the "plus" button to create one</h3>
-      <div 
-        class="cycle" 
-        v-for="(cycle, index) in cycles" 
-        :key="cycle.id">
+      <h3 v-if="!cycles.length" class="cycle__empty">
+        No cycles yet. Click the "Add a cycle" button to create one
+      </h3>
+      <div class="mb-4" v-for="(cycle, index) in cycles" :key="cycle.id">
         <!-- CYCLE -->
         <app-cycle :cycle="cycle" :index="index"></app-cycle>
       </div>
     </div>
-  </div>
+  </el-card>
 </template>
 
 <script>
-import AppCycle from '@/views/Cycles/AppCycle.vue'
-import { mapGetters } from 'vuex'
+import AppCycle from "@/views/Cycles/AppCycle.vue";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
-    AppCycle  
+    AppCycle,
   },
   computed: {
-    ...mapGetters([
-      'getProcessing',
-      'cycles',
-      'getError'
-    ])
+    ...mapGetters(["getProcessing", "cycles", "getError"]),
   },
   methods: {
     addCycle() {
-      this.$store.dispatch('addCycle')
+      this.$store.dispatch("addCycle");
     },
-  }
-}
+  },
+  created() {
+    // update state if there is new changes
+    if (this.$store.state.cyclesModule.shouldUpdateState) {
+      this.$store
+        .dispatch("setLoadedCycles")
+        .then(() => this.$store.dispatch("bindDays"))
+        .then(() => this.$store.commit("SET_SHOULD_UPDATE_STATE", false));
+    }
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-  
-  .cycle {
-    margin-bottom: 2rem;
-  }
+.add-cycles__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
 
-  // .add-cycle-btn {
-  //   position: fixed;
-  //   bottom: 5%;
-  //   right: 50%;
-  //   transform: translate(50%, 0);
-  //   z-index: 1;
-  //   box-shadow: 0px 0px 15px 2px rgba(255, 255, 255, 0.5);
-  // }
-
-  .add-cycles__wrapper {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  .add-cycle__btn {
-    z-index: 1;
-  }
-
-  .mr-2 {
-    margin-right: 1rem;
-  }
-
+.add-cycle__btn {
+  z-index: 1;
+}
 </style>

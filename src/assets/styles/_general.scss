@@ -1,34 +1,14 @@
-@import '@/assets/styles/variables.scss';
+@import "./variables";
+@import "./utilities";
 
-//COLOURS CLASSES
-.red {
-  background-color: $danger;
-}
-
-.green {
-  background-color: $success;
-}
-
-.lightgreen {
-  background-color: $lightgray;
-}
-
-.white {
-  background-color: #fff;
-}
-
-.yellow {
-  background-color: #f3e462;
-}
-
-//ICONS
+// Icons
 .el-icon {
   &--vertical {
     transform: rotate(90deg);
   }
 }
 
-// AUTH PAGES
+// Auth pages
 .auth-form {
   max-width: 400px;
   margin: 1.5rem auto 1.5rem;
@@ -44,17 +24,17 @@
 }
 
 @media screen and (min-width: 768px) {
-  // AUTH PAGES
+  // Auth pages
   .auth-form {
     padding: 1rem;
     background-color: #fff;
     border-radius: 5px;
-    box-shadow: 0 0 1px 0 rgba(0, 0, 0, .1);
-  
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.1);
+
     &__heading {
       display: block;
       margin-top: 0;
-      color: $regular-text;
+      color: $gray-800;
     }
   }
 }

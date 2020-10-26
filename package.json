@@ -10,36 +10,38 @@
     "test:watch": "vue-cli-service test:unit --watch"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.12",
-    "@fortawesome/free-solid-svg-icons": "^5.6.3",
-    "@fortawesome/vue-fontawesome": "^0.1.5",
-    "element-ui": "^2.4.11",
-    "firebase": "^7.6.0",
-    "register-service-worker": "^1.5.2",
-    "vue": "^2.5.22",
-    "vue-i18n": "^8.8.0",
-    "vue-moment": "^4.0.0",
-    "vue-router": "^3.0.1",
-    "vue-scrollto": "^2.13.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/vue-fontawesome": "^0.1.10",
+    "element-ui": "^2.13.2",
+    "firebase": "^7.24.0",
+    "register-service-worker": "^1.7.1",
+    "vue": "^2.6.12",
+    "vue-i18n": "^8.22.0",
+    "vue-moment": "^4.1.0",
+    "vue-router": "^3.4.6",
+    "vue-scrollto": "^2.19.1",
     "vue2-hammer": "^2.1.2",
-    "vuex": "^3.0.1"
+    "vuex": "^3.5.1",
+    "vuexfire": "^3.2.4"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.12.1",
     "@vue/cli-plugin-babel": "^3.3.0",
     "@vue/cli-plugin-eslint": "^3.3.0",
     "@vue/cli-plugin-pwa": "^3.3.0",
     "@vue/cli-plugin-unit-jest": "^3.3.0",
     "@vue/cli-service": "^3.3.0",
-    "@vue/test-utils": "^1.0.0-beta.20",
+    "@vue/test-utils": "^1.1.0",
     "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "^10.0.1",
+    "babel-eslint": "^10.1.0",
     "babel-jest": "^23.6.0",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.14.1",
     "sass-loader": "^7.0.1",
     "vue-cli-plugin-element-ui": "^1.1.4",
-    "vue-template-compiler": "^2.5.21"
+    "vue-template-compiler": "^2.6.12"
   },
   "eslintConfig": {
     "root": true,
@@ -50,7 +52,15 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "rules": {},
+    "rules": {
+      "no-unused-vars": [
+        2,
+        {
+          "args": "after-used",
+          "argsIgnorePattern": "^_"
+        }
+      ]
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }
